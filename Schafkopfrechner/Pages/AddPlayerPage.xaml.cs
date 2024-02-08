@@ -24,7 +24,7 @@ namespace Schafkopfrechner.Pages
         private void Players_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             // Button sichtbar machen, wenn vier oder mehr Spieler hinzugefügt wurden
-            NextButton.IsVisible = PlayerManager.Instance.Players.Count >= 4;
+            NextButton.IsVisible = PlayerManager.Instance.Players.Count >= 1; // TODO wieder auf min. 4 stellen
         }
 
         private async void OnAddPlayer_Clicked(object sender, EventArgs e)
@@ -39,7 +39,7 @@ namespace Schafkopfrechner.Pages
 
             if (PlayerManager.Instance.Players.Where(p => p.Name == playerName).ToList().Count !=0)
             {
-                await DisplayAlert("Name doppelt", "Du hast zwei mal den gleichen Namen", "OK");
+                await DisplayAlert("Name doppelt", "Du hast zwei mal den gleichen Namen eingegeben", "OK");
                 return;
             }
 

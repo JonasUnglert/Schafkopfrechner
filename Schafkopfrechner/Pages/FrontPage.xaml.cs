@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Schafkopfrechner.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,9 +18,9 @@ namespace Schafkopfrechner
 			InitializeComponent ();
 		}
 
-        private void Button_Clicked(object sender, EventArgs e)
+        private async void OnNewGameClicked(object sender, EventArgs e)
         {
-			DisplayAlert("Hallo", "Hallo, du Schafkopfer", "ok");
+            await Navigation.PushAsync(new AddPlayerPage());
         }
     }
 }

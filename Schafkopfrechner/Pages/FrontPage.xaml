@@ -4,8 +4,8 @@
              x:Class="Schafkopfrechner.FrontPage">
     <Button HorizontalOptions="End" 
             VerticalOptions="Center" 
-            Text="Greet" 
-            Clicked="Button_Clicked">
+            Text="New Game" 
+            Clicked="OnNewGameClicked">
         
     </Button>
 </ContentPage>

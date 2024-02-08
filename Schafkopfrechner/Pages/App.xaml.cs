@@ -10,7 +10,7 @@ namespace Schafkopfrechner
         {
             InitializeComponent();
 
-            MainPage = new FrontPage();
+            MainPage = new NavigationPage( new FrontPage());
         }
 
         protected override void OnStart()

@@ -1,6 +1,8 @@
 ﻿using Schafkopfrechner.DataStructures;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,42 +18,41 @@ namespace Schafkopfrechner.Pages
         public RoundStartPage()
         {
             InitializeComponent();
+
+            RoundStartViewModel viewModel = new RoundStartViewModel();
+            viewModel.Players = PlayerManager.Instance.Players;
+            viewModel.IsLegenCheckBoxVisible = GameOptionManager.Instance.GameOptions.LegenIsAllowed;
+            this.BindingContext = viewModel;
         }
 
-        protected override void OnAppearing()
+        private void PlayerButton_Clicked(object sender, EventArgs e)
         {
-            base.OnAppearing();
-            this.BindingContext = PlayerManager.Instance.Players;
-        }
-
-        private void Player1CheckedChanged(object sender, CheckedChangedEventArgs e)
-        {
-            bool isChecked = e.Value; // Der neue Zustand der Checkbox: true, wenn ausgewählt; false, wenn nicht ausgewählt.
-            GameOptionManager.Instance.GameOptions.SoloIsAllowed = isChecked;
-        }
-
-        private void Player2CheckedChanged(object sender, CheckedChangedEventArgs e)
-        {
-            bool isChecked = e.Value; // Der neue Zustand der Checkbox: true, wenn ausgewählt; false, wenn nicht ausgewählt.
-            GameOptionManager.Instance.GameOptions.SoloIsAllowed = isChecked;
-        }
-
-        private void Player3CheckedChanged(object sender, CheckedChangedEventArgs e)
-        {
-            bool isChecked = e.Value; // Der neue Zustand der Checkbox: true, wenn ausgewählt; false, wenn nicht ausgewählt.
-            GameOptionManager.Instance.GameOptions.SoloIsAllowed = isChecked;
-        }
-
-        private void Player4CheckedChanged(object sender, CheckedChangedEventArgs e)
-        {
-            bool isChecked = e.Value; // Der neue Zustand der Checkbox: true, wenn ausgewählt; false, wenn nicht ausgewählt.
-            GameOptionManager.Instance.GameOptions.SoloIsAllowed = isChecked;
+            int i = 0;
         }
 
         private async void NavigateButton_Clicked(object sender, EventArgs e)
         {
             // Navigiere zur nächsten Seite
             await Navigation.PushAsync(new GameOptionsPage()); // NextPage ist ein Platzhalter für die tatsächliche Seite, zu der navigiert werden soll
+        }
+    }
+
+    public class RoundStartViewModel
+    {
+        public ObservableCollection<Player> Players { get; set; }
+
+        public bool IsLegenCheckBoxVisible { get; set; }
+
+        public bool NotIsLegenCheckBoxVisible
+        {
+            get
+            {
+                return !this.IsLegenCheckBoxVisible;
+            }
+            set
+            {
+                this.IsLegenCheckBoxVisible = value;
+            }
         }
     }
 }

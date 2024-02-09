@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Xamarin.Forms;
 
 namespace Schafkopfrechner.DataStructures
 {
-    public class Player
+    public class Player : INotifyPropertyChanged
     {
         public string Name { get; set; }
 
@@ -13,7 +15,22 @@ namespace Schafkopfrechner.DataStructures
 
         public bool DidWin {  get; set; }
 
-        public bool DidLegen { get; set; }
+        public bool IsGeber {  get; set; } = false;
+
+        private bool didLegen;
+
+        public bool DidLegen
+        {
+            get => didLegen;
+            set
+            {
+                if (didLegen != value)
+                {
+                    didLegen = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public bool DidKontra { get; set; }
 
@@ -26,5 +43,12 @@ namespace Schafkopfrechner.DataStructures
         public int AmountOfLaeufer { get; set; }
 
         public int positionOnTable { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

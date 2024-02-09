@@ -4,6 +4,7 @@
              x:Class="Schafkopfrechner.Pages.GameOptionsPage">
     <ContentPage.Content>
         <StackLayout>
+            <Label Text="Preis einer Runde in Cent:"></Label>
             <Entry x:Name="PriceEntry" Keyboard="Numeric" Placeholder="Rundenpreis in Cent" Text= "10" TextChanged="PriceEntry_TextChanged"/>
             <Label Text="Auwählen welche Optionen erlaubt sind:" 
        HorizontalOptions="Center" 

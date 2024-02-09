@@ -3,35 +3,50 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Schafkopfrechner.Pages.RoundStartPage">
     <ContentPage.Content>
-
         <StackLayout Orientation="Vertical" VerticalOptions="Start">
-            <StackLayout Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="Start">
-                <StackLayout Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="Start">
-                    <ListView ItemsSource="{Binding}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <TextCell Text="{Binding Name}" />
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                    <ListView ItemsSource="{Binding}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <TextCell Text="{Binding BankBalanceInCent}" />
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </StackLayout>
-                <StackLayout Orientation="Vertical" VerticalOptions="Start">
-                    <CheckBox IsChecked="False" VerticalOptions="Start" CheckedChanged="Player1CheckedChanged"/>
-                    <CheckBox IsChecked="False" VerticalOptions="Start" CheckedChanged="Player2CheckedChanged"/>
-                    <CheckBox IsChecked="False" VerticalOptions="Start" CheckedChanged="Player3CheckedChanged"/>
-                    <CheckBox IsChecked="False" VerticalOptions="Start" CheckedChanged="Player4CheckedChanged"/>
-                </StackLayout>
-            </StackLayout>
+            <!-- Legen ist erlaubt -->
+            <ListView ItemsSource="{Binding Players}" IsVisible="{Binding IsLegenCheckBoxVisible}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" Padding="10">
+                                <Button Text="{Binding Name}" VerticalOptions="Center" WidthRequest="100" Clicked="PlayerButton_Clicked">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding IsGeber}" Value="True">
+                                            <Setter Property="TextColor" Value="Red"/>
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                                <Label Text="{Binding BankBalanceInCent}" VerticalOptions="Center" WidthRequest="100"/>
+                                <CheckBox IsChecked="{Binding DidLegen}" VerticalOptions="Center"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <!-- Legen ist nicht erlaubt -->
+            <ListView ItemsSource="{Binding Players}" IsVisible="{Binding NotIsLegenCheckBoxVisible}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" Padding="10">
+                                <Button Text="{Binding Name}" VerticalOptions="Center" WidthRequest="100">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding IsGeber}" Value="True">
+                                            <Setter Property="TextColor" Value="Red"/>
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                                <Label Text="{Binding BankBalanceInCent}" VerticalOptions="Center" WidthRequest="100"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
             <Button x:Name="NextButton" 
                 Text="Weiter" 
-                Clicked="NavigateButton_Clicked" 
+                Clicked="NavigateButton_Clicked"
                 IsVisible="True" />
         </StackLayout>
     </ContentPage.Content>

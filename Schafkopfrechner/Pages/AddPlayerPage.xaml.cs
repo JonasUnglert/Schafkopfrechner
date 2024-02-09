@@ -37,13 +37,13 @@ namespace Schafkopfrechner.Pages
 
             string playerName = await DisplayPromptAsync("Neuer Spieler", "Name des neuen Spielers eingeben");
 
-            if (PlayerManager.Instance.Players.Where(p => p.Name == playerName).ToList().Count !=0)
+            if (PlayerManager.Instance.Players.Where(p => p.Name == playerName).ToList().Count != 0)
             {
                 await DisplayAlert("Name doppelt", "Du hast zwei mal den gleichen Namen eingegeben", "OK");
                 return;
             }
 
-            if(!string.IsNullOrEmpty(playerName))
+            if (!string.IsNullOrEmpty(playerName))
             {
                 PlayerManager.Instance.Players.Add(new Player { Name = playerName });
             }
@@ -53,13 +53,19 @@ namespace Schafkopfrechner.Pages
         {
             if (PlayerManager.Instance.Players.Count > 0)
             {
-                PlayerManager.Instance.Players.RemoveAt(PlayerManager.Instance.Players.Count -1);
+                PlayerManager.Instance.Players.RemoveAt(PlayerManager.Instance.Players.Count - 1);
             }
         }
 
         private async void NavigateButton_Clicked(object sender, EventArgs e)
         {
-            // Navigiere zur nächsten Seite
+            // immer den ersten in der liste als geber setzen
+            foreach (var player in PlayerManager.Instance.Players)
+            {
+                player.IsGeber = false;
+            }
+            PlayerManager.Instance.Players.First().IsGeber = true;
+
             await Navigation.PushAsync(new GameOptionsPage()); // NextPage ist ein Platzhalter für die tatsächliche Seite, zu der navigiert werden soll
         }
     }

@@ -5,11 +5,34 @@
     <ContentPage.Content>
         <StackLayout>
             <Entry x:Name="PriceEntry" Keyboard="Numeric" Placeholder="Rundenpreis in Cent" Text= "10" TextChanged="PriceEntry_TextChanged"/>
-            <CheckBox IsChecked="True" CheckedChanged="SoloCheckedChanged"/>
-            <CheckBox IsChecked="True" CheckedChanged="WenzCheckedChanged"/>
-            <CheckBox IsChecked="False" CheckedChanged="LegenCheckedChanged"/>
-            <CheckBox IsChecked="False" CheckedChanged="KontraCheckedChanged"/>
-            <CheckBox IsChecked="False" CheckedChanged="KontraSauspielCheckedChanged"/>
+            <Label Text="Auwählen welche Optionen erlaubt sind:" 
+       HorizontalOptions="Center" 
+       VerticalOptions="Center" />
+
+            <StackLayout Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="Start">
+                <CheckBox IsChecked="True" CheckedChanged="SoloCheckedChanged"/>
+                <Label Text="Solo" VerticalOptions="Center"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="Start">
+                <CheckBox IsChecked="True" CheckedChanged="WenzCheckedChanged"/>
+                <Label Text="Wenz" VerticalOptions="Center"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="Start">
+                <CheckBox IsChecked="False" CheckedChanged="LegenCheckedChanged"/>
+                <Label Text="Legen" VerticalOptions="Center"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="Start">
+                <CheckBox IsChecked="False" CheckedChanged="KontraCheckedChanged"/>
+                <Label Text="Kontra" VerticalOptions="Center"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="Start">
+                <CheckBox IsChecked="False" CheckedChanged="KontraSauspielCheckedChanged"/>
+                <Label Text="Kontra bei Sauspiel" VerticalOptions="Center"/>
+            </StackLayout>
             <Button x:Name="NextButton" 
                 Text="Weiter" 
                 Clicked="NavigateButton_Clicked" 

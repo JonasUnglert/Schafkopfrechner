@@ -21,6 +21,16 @@
             </StackLayout>
 
             <StackLayout Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="Start">
+                <CheckBox IsChecked="True" CheckedChanged="SauspielCheckedChanged"/>
+                <Label Text="Sauspiel" VerticalOptions="Center"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="Start">
+                <CheckBox IsChecked="True" CheckedChanged="RamschCheckedChanged"/>
+                <Label Text="Ramsch" VerticalOptions="Center"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="Start">
                 <CheckBox IsChecked="False" CheckedChanged="LegenCheckedChanged"/>
                 <Label Text="Legen" VerticalOptions="Center"/>
             </StackLayout>

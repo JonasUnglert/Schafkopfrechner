@@ -36,37 +36,48 @@ namespace Schafkopfrechner.Pages
                 return;
             }
 
-            GameOptionManager.Instance.GameOptions.PriceInCent = priceInCent;
+            GameOptions.Instance.PriceInCent = priceInCent;
         }
 
         private void SoloCheckedChanged(object sender, CheckedChangedEventArgs e)
         {
             bool isChecked = e.Value; // Der neue Zustand der Checkbox: true, wenn ausgewählt; false, wenn nicht ausgewählt.
-            GameOptionManager.Instance.GameOptions.SoloIsAllowed = isChecked;
+            GameOptions.Instance.SoloIsAllowed = isChecked;
         }
 
         private void WenzCheckedChanged(object sender, CheckedChangedEventArgs e)
         {
             bool isChecked = e.Value; // Der neue Zustand der Checkbox: true, wenn ausgewählt; false, wenn nicht ausgewählt.
-            GameOptionManager.Instance.GameOptions.WenzIsAllowed = isChecked;
+            GameOptions.Instance.WenzIsAllowed = isChecked;
+        }
+        private void SauspielCheckedChanged(object sender, CheckedChangedEventArgs e)
+        {
+            bool isChecked = e.Value; // Der neue Zustand der Checkbox: true, wenn ausgewählt; false, wenn nicht ausgewählt.
+            GameOptions.Instance.SauspielIsAllowed = isChecked;
+        }
+
+        private void RamschCheckedChanged(object sender, CheckedChangedEventArgs e)
+        {
+            bool isChecked = e.Value; // Der neue Zustand der Checkbox: true, wenn ausgewählt; false, wenn nicht ausgewählt.
+            GameOptions.Instance.RamschIsAllowed = isChecked;
         }
 
         private void LegenCheckedChanged(object sender, CheckedChangedEventArgs e)
         {
             bool isChecked = e.Value; // Der neue Zustand der Checkbox: true, wenn ausgewählt; false, wenn nicht ausgewählt.
-            GameOptionManager.Instance.GameOptions.LegenIsAllowed = isChecked;
+            GameOptions.Instance.LegenIsAllowed = isChecked;
         }
 
         private void KontraCheckedChanged(object sender, CheckedChangedEventArgs e)
         {
             bool isChecked = e.Value; // Der neue Zustand der Checkbox: true, wenn ausgewählt; false, wenn nicht ausgewählt.
-            GameOptionManager.Instance.GameOptions.KontraIsAllowed = isChecked;
+            GameOptions.Instance.KontraIsAllowed = isChecked;
         }
 
         private void KontraSauspielCheckedChanged(object sender, CheckedChangedEventArgs e)
         {
             bool isChecked = e.Value; // Der neue Zustand der Checkbox: true, wenn ausgewählt; false, wenn nicht ausgewählt.
-            GameOptionManager.Instance.GameOptions.KontraSausupielIsAllowed = isChecked;
+            GameOptions.Instance.KontraSauspielIsAllowed = isChecked;
         }
         private async void NavigateButton_Clicked(object sender, EventArgs e)
         {

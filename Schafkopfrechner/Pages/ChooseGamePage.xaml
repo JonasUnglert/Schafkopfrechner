@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Schafkopfrechner.Pages.ChooseGamePage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Orientation="Vertical">
+            <Button Text="Solo" VerticalOptions="Center" WidthRequest="100" Clicked="SoloButton_Clicked"/>
+            <Button Text="Wenz" VerticalOptions="Center" WidthRequest="100" Clicked="WenzButton_Clicked"/>
+            <Button Text="Sauspiel" VerticalOptions="Center" WidthRequest="100" Clicked="SauspielButton_Clicked"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

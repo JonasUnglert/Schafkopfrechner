@@ -13,9 +13,11 @@ namespace Schafkopfrechner.DataStructures
 
         public int BankBalanceInCent { get; set; } = 0;
 
-        public bool DidWin {  get; set; }
+        public bool DidWin { get; set; } = false;
 
         public bool IsGeber {  get; set; } = false;
+
+        public bool IsPlayer { get; set; } = false;
 
         private bool didLegen;
 
@@ -32,17 +34,17 @@ namespace Schafkopfrechner.DataStructures
             }
         }
 
-        public bool DidKontra { get; set; }
+        public bool DidKontra { get; set; } = false;
 
-        public bool DidJungfrau { get; set; }
+        public bool DidJungfrau { get; set; } = false;
 
-        public bool IsSchneider { get; set; }
+        public bool IsSchneider { get; set; } = false;
 
-        public bool IsSchwarz { get; set; }
+        public bool IsSchwarz { get; set; } = false;
 
-        public int AmountOfLaeufer { get; set; }
+        public int AmountOfLaeufer { get; set; } = 0;
 
-        public int positionOnTable { get; set; }
+        public int positionOnTable { get; set; } = 0;
 
         public event PropertyChangedEventHandler PropertyChanged;
 

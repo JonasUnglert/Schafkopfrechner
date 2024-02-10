@@ -31,7 +31,7 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal" Padding="10">
-                                <Button Text="{Binding Name}" VerticalOptions="Center" WidthRequest="100">
+                                <Button Text="{Binding Name}" VerticalOptions="Center" WidthRequest="100" Clicked="PlayerButton_Clicked">
                                     <Button.Triggers>
                                         <DataTrigger TargetType="Button" Binding="{Binding IsGeber}" Value="True">
                                             <Setter Property="TextColor" Value="Red"/>
@@ -44,10 +44,10 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button x:Name="NextButton" 
-                Text="Weiter" 
-                Clicked="NavigateButton_Clicked"
-                IsVisible="True" />
+            <Button x:Name="RamschButton" 
+                Text="Ramsch" 
+                Clicked="RamschButton_Clicked"
+                IsVisible="{Binding IsRamschAllowed}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

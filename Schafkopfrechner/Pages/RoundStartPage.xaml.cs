@@ -21,19 +21,33 @@ namespace Schafkopfrechner.Pages
 
             RoundStartViewModel viewModel = new RoundStartViewModel();
             viewModel.Players = PlayerManager.Instance.Players;
-            viewModel.IsLegenCheckBoxVisible = GameOptionManager.Instance.GameOptions.LegenIsAllowed;
+            viewModel.IsLegenCheckBoxVisible = GameOptions.Instance.LegenIsAllowed;
+            viewModel.IsRamschAllowed = GameOptions.Instance.RamschIsAllowed;
             this.BindingContext = viewModel;
         }
 
-        private void PlayerButton_Clicked(object sender, EventArgs e)
+        private async void PlayerButton_Clicked(object sender, EventArgs e)
         {
-            int i = 0;
+            var button = sender as Button;
+            
+            if (button != null)
+            {
+                var buttonText = button.Text;
+
+                Player playingPlayer = PlayerManager.Instance.Players.First(p => p.Name == buttonText);
+
+                int indexOfPlayingPlayer = PlayerManager.Instance.Players.IndexOf(playingPlayer);
+
+                PlayerManager.Instance.Players[indexOfPlayingPlayer].IsPlayer = true;
+
+                await Navigation.PushAsync(new ChooseGamePage());
+            }
         }
 
-        private async void NavigateButton_Clicked(object sender, EventArgs e)
+        private async void RamschButton_Clicked(object sender, EventArgs e)
         {
             // Navigiere zur nächsten Seite
-            await Navigation.PushAsync(new GameOptionsPage()); // NextPage ist ein Platzhalter für die tatsächliche Seite, zu der navigiert werden soll
+            await Navigation.PushAsync(new WhilePlayingPage()); // NextPage ist ein Platzhalter für die tatsächliche Seite, zu der navigiert werden soll
         }
     }
 
@@ -42,6 +56,8 @@ namespace Schafkopfrechner.Pages
         public ObservableCollection<Player> Players { get; set; }
 
         public bool IsLegenCheckBoxVisible { get; set; }
+
+        public bool IsRamschAllowed { get; set; }
 
         public bool NotIsLegenCheckBoxVisible
         {

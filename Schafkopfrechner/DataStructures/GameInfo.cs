@@ -22,5 +22,7 @@ namespace Schafkopfrechner.DataStructures
 
         public List<Player> Players{ get; set; }
 
+        public DateTime dateTime { get; set; }
+
     }
 }

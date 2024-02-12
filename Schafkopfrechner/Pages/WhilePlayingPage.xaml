@@ -3,10 +3,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Schafkopfrechner.Pages.WhilePlayingPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Orientation="Vertical" VerticalOptions="Start">
+            <!-- Legen ist erlaubt -->
+            <ListView ItemsSource="{Binding Players}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" Padding="8,0">
+                                <Label Text="{Binding Name}" FontSize="14" HorizontalOptions="StartAndExpand" WidthRequest="120" VerticalOptions="Center">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label" Binding="{Binding IsGeber}" Value="True">
+                                            <Setter Property="TextColor" Value="Red"/>
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <Label Text="{Binding BankBalanceInCent}" VerticalOptions="Center" HorizontalOptions="EndAndExpand" WidthRequest="10"/>
+                                <Label Text="Cent" FontSize="14" VerticalOptions="Center" HorizontalOptions="StartAndExpand" WidthRequest="50"/>
+                                <CheckBox IsEnabled="False" IsChecked="{Binding DidLegen}" HorizontalOptions="StartAndExpand" IsVisible="{Binding LegenIsAllowed}"/>
+                                <CheckBox IsEnabled="False" IsChecked="{Binding DidKontra}" HorizontalOptions="StartAndExpand" IsVisible="{Binding KontraIsAllowed}"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button x:Name="RamschButton" 
+                Text="Spielende" 
+                Clicked="RamschButton_Clicked"
+                IsVisible="{Binding IsRamschAllowed}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

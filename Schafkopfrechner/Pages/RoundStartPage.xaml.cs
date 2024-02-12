@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,27 +23,31 @@ namespace Schafkopfrechner.Pages
 
             RoundStartViewModel viewModel = new RoundStartViewModel();
             viewModel.Players = PlayerManager.Instance.Players;
-            viewModel.IsLegenCheckBoxVisible = GameOptions.Instance.LegenIsAllowed;
             viewModel.IsRamschAllowed = GameOptions.Instance.RamschIsAllowed;
             this.BindingContext = viewModel;
         }
 
-        private async void PlayerButton_Clicked(object sender, EventArgs e)
+        private void PlayerButton_Clicked(object sender, EventArgs e)
         {
             var button = sender as Button;
             
             if (button != null)
             {
-                var buttonText = button.Text;
+                string playerName = button.CommandParameter as string;
 
-                Player playingPlayer = PlayerManager.Instance.Players.First(p => p.Name == buttonText);
+                Player playingPlayer = PlayerManager.Instance.Players.First(p => p.Name == playerName);
 
                 int indexOfPlayingPlayer = PlayerManager.Instance.Players.IndexOf(playingPlayer);
 
                 PlayerManager.Instance.Players[indexOfPlayingPlayer].IsPlayer = true;
 
-                await Navigation.PushAsync(new ChooseGamePage());
+                this.NavigateToChooseGamePage();
             }
+        }
+
+        private async void NavigateToChooseGamePage()
+        {
+            await Navigation.PushAsync(new ChooseGamePage());
         }
 
         private async void RamschButton_Clicked(object sender, EventArgs e)
@@ -51,24 +57,31 @@ namespace Schafkopfrechner.Pages
         }
     }
 
-    public class RoundStartViewModel
+    public class RoundStartViewModel : INotifyPropertyChanged
     {
+        private bool _isLegenCheckBoxVisible;
+        private bool _isRamschAllowed;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public ObservableCollection<Player> Players { get; set; }
 
-        public bool IsLegenCheckBoxVisible { get; set; }
-
-        public bool IsRamschAllowed { get; set; }
-
-        public bool NotIsLegenCheckBoxVisible
+        public bool IsRamschAllowed
         {
-            get
-            {
-                return !this.IsLegenCheckBoxVisible;
-            }
+            get => _isRamschAllowed;
             set
             {
-                this.IsLegenCheckBoxVisible = value;
+                if (_isRamschAllowed != value)
+                {
+                    _isRamschAllowed = value;
+                    OnPropertyChanged(nameof(IsRamschAllowed));
+                }
             }
+        }
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

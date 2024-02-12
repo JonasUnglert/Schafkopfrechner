@@ -17,6 +17,10 @@ namespace Schafkopfrechner.DataStructures
 
         public bool IsGeber {  get; set; } = false;
 
+        public bool LegenIsAllowed { get; set; } = false;
+
+        public bool KontraIsAllowed { get; set; } = false;
+
         public bool IsPlayer { get; set; } = false;
 
         private bool didLegen;

@@ -5,40 +5,22 @@
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" VerticalOptions="Start">
             <!-- Legen ist erlaubt -->
-            <ListView ItemsSource="{Binding Players}" IsVisible="{Binding IsLegenCheckBoxVisible}">
+            <ListView ItemsSource="{Binding Players}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Orientation="Horizontal" Padding="10">
-                                <Button Text="{Binding Name}" VerticalOptions="Center" WidthRequest="100" Clicked="PlayerButton_Clicked">
-                                    <Button.Triggers>
-                                        <DataTrigger TargetType="Button" Binding="{Binding IsGeber}" Value="True">
+                            <StackLayout Orientation="Horizontal" Padding="8,0">
+                                <Label Text="{Binding Name}" FontSize="14" HorizontalOptions="StartAndExpand" WidthRequest="120" VerticalOptions="Center">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label" Binding="{Binding IsGeber}" Value="True">
                                             <Setter Property="TextColor" Value="Red"/>
                                         </DataTrigger>
-                                    </Button.Triggers>
-                                </Button>
-                                <Label Text="{Binding BankBalanceInCent}" VerticalOptions="Center" WidthRequest="100"/>
-                                <CheckBox IsChecked="{Binding DidLegen}" VerticalOptions="Center"/>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-
-            <!-- Legen ist nicht erlaubt -->
-            <ListView ItemsSource="{Binding Players}" IsVisible="{Binding NotIsLegenCheckBoxVisible}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Orientation="Horizontal" Padding="10">
-                                <Button Text="{Binding Name}" VerticalOptions="Center" WidthRequest="100" Clicked="PlayerButton_Clicked">
-                                    <Button.Triggers>
-                                        <DataTrigger TargetType="Button" Binding="{Binding IsGeber}" Value="True">
-                                            <Setter Property="TextColor" Value="Red"/>
-                                        </DataTrigger>
-                                    </Button.Triggers>
-                                </Button>
-                                <Label Text="{Binding BankBalanceInCent}" VerticalOptions="Center" WidthRequest="100"/>
+                                    </Label.Triggers>
+                                </Label>
+                                <Label Text="{Binding BankBalanceInCent}" VerticalOptions="Center" HorizontalOptions="EndAndExpand" WidthRequest="10"/>
+                                <Label Text="Cent" FontSize="14" VerticalOptions="Center" HorizontalOptions="StartAndExpand" WidthRequest="50"/>
+                                <CheckBox IsChecked="{Binding DidLegen}" HorizontalOptions="StartAndExpand" IsVisible="{Binding LegenIsAllowed}"/>
+                                <Button Text="SPIELE" Clicked="PlayerButton_Clicked" CommandParameter="{Binding Name}"/>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

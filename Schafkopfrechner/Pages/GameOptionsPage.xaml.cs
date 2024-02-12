@@ -82,6 +82,11 @@ namespace Schafkopfrechner.Pages
         private async void NavigateButton_Clicked(object sender, EventArgs e)
         {
             // Navigiere zur nächsten Seite
+            for (int i = 0; i < PlayerManager.Instance.Players.Count; i++)
+            {
+                PlayerManager.Instance.Players[i].LegenIsAllowed = GameOptions.Instance.LegenIsAllowed;
+            }
+
             await Navigation.PushAsync(new RoundStartPage()); // NextPage ist ein Platzhalter für die tatsächliche Seite, zu der navigiert werden soll
         }
 

@@ -24,5 +24,6 @@ namespace Schafkopfrechner.DataStructures
 
         public DateTime dateTime { get; set; }
 
+        public int BaseRoundPrice { get; set; }
     }
 }

@@ -17,7 +17,7 @@
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
-                                <Label Text="{Binding BankBalanceInCent}" VerticalOptions="Center" HorizontalOptions="EndAndExpand" WidthRequest="10"/>
+                                <Label Text="{Binding BankBalanceInCent}" VerticalOptions="Center" HorizontalOptions="EndAndExpand" WidthRequest="50"/>
                                 <Label Text="Cent" FontSize="14" VerticalOptions="Center" HorizontalOptions="StartAndExpand" WidthRequest="50"/>
                                 <CheckBox IsChecked="{Binding DidLegen}" HorizontalOptions="StartAndExpand" IsVisible="{Binding LegenIsAllowed}"/>
                                 <Button Text="SPIELE" Clicked="PlayerButton_Clicked" CommandParameter="{Binding Name}"/>
@@ -29,7 +29,8 @@
             <Button x:Name="RamschButton" 
                 Text="Ramsch" 
                 Clicked="RamschButton_Clicked"
-                IsVisible="{Binding IsRamschAllowed}"/>
+                IsVisible="{Binding IsRamschAllowed}"
+                VerticalOptions="StartAndExpand"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

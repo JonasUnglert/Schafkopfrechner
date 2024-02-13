@@ -48,34 +48,18 @@ namespace Schafkopfrechner.Pages
             await Navigation.PushAsync(new ChooseGamePage());
         }
 
-        private async void RamschButton_Clicked(object sender, EventArgs e)
+        private async void PlayEndsButton_Clicked(object sender, EventArgs e)
         {
             // Navigiere zur nächsten Seite
-            await Navigation.PushAsync(new WhilePlayingPage()); // NextPage ist ein Platzhalter für die tatsächliche Seite, zu der navigiert werden soll
+            await Navigation.PushAsync(new PlayEndGame()); // NextPage ist ein Platzhalter für die tatsächliche Seite, zu der navigiert werden soll
         }
     }
 
     public class WhilePlayingViewModel : INotifyPropertyChanged
     {
-        private bool _isLegenCheckBoxVisible;
-        private bool _isRamschAllowed;
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ObservableCollection<Player> Players { get; set; }
-
-        public bool IsRamschAllowed
-        {
-            get => _isRamschAllowed;
-            set
-            {
-                if (_isRamschAllowed != value)
-                {
-                    _isRamschAllowed = value;
-                    OnPropertyChanged(nameof(IsRamschAllowed));
-                }
-            }
-        }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

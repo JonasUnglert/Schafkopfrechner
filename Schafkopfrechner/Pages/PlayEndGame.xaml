@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Schafkopfrechner.Pages.PlayEndGame">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <!-- Schneider -->
+            <StackLayout Orientation="Horizontal">
+                <CheckBox IsChecked="False" CheckedChanged="SchneiderCheckedChanged"/>
+                <Label Text="Schneider" VerticalOptions="Center"/>
+            </StackLayout>
+
+            <!-- Schwarz -->
+            <StackLayout Orientation="Horizontal">
+                <CheckBox IsChecked="False" CheckedChanged="SchwarzCheckedChanged"/>
+                <Label Text="Schwarz" VerticalOptions="Center"/>
+            </StackLayout>
+
+            <!-- Läufer -->
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Läufer:"/>
+                <Entry x:Name="AmountLaeuferEntry" Keyboard="Numeric" Placeholder="Anzahl Läufer" Text="0" TextChanged="LaeuferEntry_TextChanged"/>
+            </StackLayout>
+
+            <!-- Berechne Button -->
+            <Button Text="Berechne" Clicked="CalculateButton_Clicked" VerticalOptions="EndAndExpand"/>
+
+            <!-- Nächste Runde Button -->
+            <Button Text="Nächste Runde" Clicked="NextRoundButton_Clicked" VerticalOptions="EndAndExpand"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

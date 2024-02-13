@@ -52,14 +52,12 @@ namespace Schafkopfrechner.Pages
 
         private async void RamschButton_Clicked(object sender, EventArgs e)
         {
-            // Navigiere zur nächsten Seite
-            await Navigation.PushAsync(new WhilePlayingPage()); // NextPage ist ein Platzhalter für die tatsächliche Seite, zu der navigiert werden soll
+            await Navigation.PushAsync(new WhilePlayingPage()); 
         }
     }
 
     public class RoundStartViewModel : INotifyPropertyChanged
     {
-        private bool _isLegenCheckBoxVisible;
         private bool _isRamschAllowed;
 
         public event PropertyChangedEventHandler PropertyChanged;

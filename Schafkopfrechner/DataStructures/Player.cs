@@ -15,7 +15,7 @@ namespace Schafkopfrechner.DataStructures
 
         public bool DidWin { get; set; } = false;
 
-        public bool IsGeber {  get; set; } = false;
+        public bool IsGeber { get; set; } = false;
 
         public bool LegenIsAllowed { get; set; } = false;
 
@@ -33,12 +33,25 @@ namespace Schafkopfrechner.DataStructures
                 if (didLegen != value)
                 {
                     didLegen = value;
-                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(DidLegen));
                 }
             }
         }
 
-        public bool DidKontra { get; set; } = false;
+        private bool didKontra { get; set; } = false;
+
+        public bool DidKontra
+        {
+            get => didKontra;
+            set
+            {
+                if (didKontra != value)
+                {
+                    didKontra = value;
+                    OnPropertyChanged(nameof(DidKontra));
+                }
+            }
+        }
 
         public bool DidJungfrau { get; set; } = false;
 
@@ -48,7 +61,14 @@ namespace Schafkopfrechner.DataStructures
 
         public int AmountOfLaeufer { get; set; } = 0;
 
-        public int positionOnTable { get; set; } = 0;
+        public void ResetPlayValues()
+        {
+            DidJungfrau = false;
+            DidKontra = false;
+            DidLegen = false;
+            DidWin = false;
+            AmountOfLaeufer = 0;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

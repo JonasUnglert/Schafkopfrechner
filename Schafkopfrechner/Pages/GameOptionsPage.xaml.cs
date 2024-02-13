@@ -85,6 +85,7 @@ namespace Schafkopfrechner.Pages
             for (int i = 0; i < PlayerManager.Instance.Players.Count; i++)
             {
                 PlayerManager.Instance.Players[i].LegenIsAllowed = GameOptions.Instance.LegenIsAllowed;
+                PlayerManager.Instance.Players[i].KontraIsAllowed = GameOptions.Instance.KontraIsAllowed;
             }
 
             await Navigation.PushAsync(new RoundStartPage()); // NextPage ist ein Platzhalter für die tatsächliche Seite, zu der navigiert werden soll

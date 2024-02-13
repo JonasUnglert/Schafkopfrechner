@@ -25,23 +25,6 @@ namespace Schafkopfrechner.Pages
             viewModel.IsRamschAllowed = GameOptions.Instance.RamschIsAllowed;
             this.BindingContext = viewModel;
         }
-        private void PlayerButton_Clicked(object sender, EventArgs e)
-        {
-            var button = sender as Button;
-
-            if (button != null)
-            {
-                string playerName = button.CommandParameter as string;
-
-                Player playingPlayer = PlayerManager.Instance.Players.First(p => p.Name == playerName);
-
-                int indexOfPlayingPlayer = PlayerManager.Instance.Players.IndexOf(playingPlayer);
-
-                PlayerManager.Instance.Players[indexOfPlayingPlayer].IsPlayer = true;
-
-                this.NavigateToChoosGamePage();
-            }
-        }
 
         private async void NavigateToChoosGamePage()
         {

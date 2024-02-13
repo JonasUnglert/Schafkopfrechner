@@ -68,12 +68,9 @@ namespace Schafkopfrechner.Pages
                 return;
             }
 
-            var winningPlayers = PlayerManager.Instance.Players.Where(p => p.DidWin == true);
-
-            foreach (var player in winningPlayers)
+            for (int i = 0; i < PlayerManager.Instance.Players.Count; i++)
             {
-                int indexPlayer = PlayerManager.Instance.Players.IndexOf(player);
-                PlayerManager.Instance.Players[indexPlayer].AmountOfLaeufer = amountOfLäufer;
+                PlayerManager.Instance.Players[i].AmountOfLaeufer = amountOfLäufer;
             }
         }
 
@@ -121,8 +118,7 @@ namespace Schafkopfrechner.Pages
         {
             foreach (var player in PlayerManager.Instance.Players)
             {
-                PlayerHistory.Instance.Players.Add(player);
-                player.DidJungfrau = false;
+                PlayerHistoryManager.Instance.AddHistoryGame(player, GameInfoManager.Instance.GameInfo.Last());
                 player.ResetPlayValues();
             }
 

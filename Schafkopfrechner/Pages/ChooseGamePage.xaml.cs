@@ -24,12 +24,6 @@ namespace Schafkopfrechner.Pages
             viewModel.isSauspielAllowed = GameOptions.Instance.SauspielIsAllowed;
 
             this.BindingContext = viewModel;
-
-            GameInfo gameInfo = new GameInfo();
-            gameInfo.dateTime = DateTime.Now;
-            gameInfo.Players = PlayerManager.Instance.Players.ToList();
-
-            GameInfoManager.Instance.GameInfo.Add(gameInfo);
         }
 
         private async void SoloButton_Clicked(object sender, EventArgs e)

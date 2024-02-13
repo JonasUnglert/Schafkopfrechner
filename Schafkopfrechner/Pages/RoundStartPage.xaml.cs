@@ -25,6 +25,11 @@ namespace Schafkopfrechner.Pages
             viewModel.Players = PlayerManager.Instance.Players;
             viewModel.IsRamschAllowed = GameOptions.Instance.RamschIsAllowed;
             this.BindingContext = viewModel;
+
+            GameInfo gameInfo = new GameInfo();
+            gameInfo.dateTime = DateTime.Now;
+            gameInfo.Players = PlayerManager.Instance.Players.ToList();
+            GameInfoManager.Instance.GameInfo.Add(gameInfo);
         }
 
         private void PlayerButton_Clicked(object sender, EventArgs e)
@@ -52,6 +57,7 @@ namespace Schafkopfrechner.Pages
 
         private async void RamschButton_Clicked(object sender, EventArgs e)
         {
+            GameInfoManager.Instance.GameInfo.Last().GameType = GameInfo.GameTypeEnum.Ramsch;
             await Navigation.PushAsync(new WhilePlayingPage()); 
         }
     }

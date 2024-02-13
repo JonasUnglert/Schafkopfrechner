@@ -1,7 +1,10 @@
 ﻿using Schafkopfrechner.DataStructures;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -78,14 +81,16 @@ namespace Schafkopfrechner.Pages
         {
             int gamePrice = 0;
             bool isSolo = false;
-            if (GameInfoManager.Instance.GameInfo.Last().GameType == GameInfo.GameTypeEnum.Sauspiel)
+            bool isRamsch = false;
+            gamePrice = GameOptions.Instance.PriceInCent;
+            if (GameInfoManager.Instance.GameInfo.Last().GameType == GameInfo.GameTypeEnum.Ramsch)
             {
-                gamePrice = GameOptions.Instance.PriceInCent;
+                isRamsch = true;
             }
-            else
+            else if (GameInfoManager.Instance.GameInfo.Last().GameType != GameInfo.GameTypeEnum.Sauspiel)
             {
                 isSolo = true;
-                gamePrice = GameOptions.Instance.PriceInCent * 5;
+                gamePrice = gamePrice * 5;
             }
 
             int schneiderPrice = isSchneiderGame ? GameOptions.Instance.PriceInCent : 0;
@@ -93,10 +98,17 @@ namespace Schafkopfrechner.Pages
 
             int läuferPrice = GameOptions.Instance.PriceInCent * PlayerManager.Instance.Players.Max(p => p.AmountOfLaeufer);
 
+            läuferPrice = isRamsch ? 0 : läuferPrice;
+            schneiderPrice = isRamsch ? 0 : schneiderPrice;
+            schwarzPrice = isRamsch ? 0 : schwarzPrice;
+
             int tempPrice = gamePrice + schneiderPrice + schwarzPrice + läuferPrice;
 
-            int legerDoubler = PlayerManager.Instance.Players.Where(p => p.DidLegen == true).Any() ? 2 : 1;
-            int kontraDoubler = PlayerManager.Instance.Players.Where(p => p.DidKontra == true).Any() ? 2 : 1;
+            int legerDoubler = 2 ^ PlayerManager.Instance.Players.Where(p => p.DidLegen == true).Count();
+            int jungFrauDoubler = 2 ^ PlayerManager.Instance.Players.Where(p => p.DidJungfrau == true).Count();
+
+            int kontraDoubler = 2 ^ PlayerManager.Instance.Players.Where(p => p.DidKontra == true).Count();
+            kontraDoubler = isRamsch ? 1 : kontraDoubler;
 
             int totalGamePrice = tempPrice * kontraDoubler * legerDoubler;
 
@@ -105,11 +117,18 @@ namespace Schafkopfrechner.Pages
                 if (player.DidWin == true)
                 {
                     int soloFactor = isSolo ? 3 : 1;
-                    player.BankBalanceInCent += (totalGamePrice * soloFactor);
+                    
+                    int ramschFactor = isRamsch && player.DidKontra ? 2 : 1;
+                    ramschFactor = isRamsch ? -3 * ramschFactor : 1;
+
+                    player.BankBalanceInCent += (totalGamePrice * soloFactor * ramschFactor);
                 }
                 else
                 {
-                    player.BankBalanceInCent -= totalGamePrice;
+                    int ramschFactor = isRamsch && player.DidKontra ? 2 : 1;
+                    ramschFactor = isRamsch ? 3 : 1;
+
+                    player.BankBalanceInCent -= totalGamePrice * ramschFactor;
                 }
             }
         }
@@ -120,7 +139,7 @@ namespace Schafkopfrechner.Pages
             {
                 PlayerHistoryManager.Instance.AddHistoryGame(player, GameInfoManager.Instance.GameInfo.Last());
                 player.ResetPlayValues();
-            }
+            } 
 
             int indexGeber = PlayerManager.Instance.Players.ToList().FindIndex(p => p.IsGeber);
 
@@ -131,7 +150,7 @@ namespace Schafkopfrechner.Pages
 
             int newGeberIndex = indexGeber + 1;
 
-            if(PlayerManager.Instance.Players.Count == newGeberIndex)
+            if (PlayerManager.Instance.Players.Count == newGeberIndex)
             {
                 newGeberIndex = 0;
             }

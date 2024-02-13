@@ -24,7 +24,8 @@
                                 <Label Text="Cent" FontSize="14" VerticalOptions="Center" HorizontalOptions="StartAndExpand" WidthRequest="50"/>
                                 <CheckBox IsEnabled="False" IsChecked="{Binding DidLegen}" HorizontalOptions="StartAndExpand" IsVisible="{Binding LegenIsAllowed}"/>
                                 <CheckBox IsEnabled="true" IsChecked="{Binding DidKontra}" HorizontalOptions="StartAndExpand" IsVisible="{Binding KontraIsAllowed}"/>
-                                <CheckBox IsChecked="{Binding DidWin}" HorizontalOptions="StartAndExpand" IsVisible="true"/>
+                                <CheckBox Color="Black" IsEnabled="true" IsChecked="{Binding DidJungfrau}" HorizontalOptions="StartAndExpand" IsVisible="{Binding IsRamschPlayed}"/>
+                                <CheckBox Color="Green" IsChecked="{Binding DidWin}" HorizontalOptions="StartAndExpand" IsVisible="true"/>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

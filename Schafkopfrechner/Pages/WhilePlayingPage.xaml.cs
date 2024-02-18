@@ -23,6 +23,8 @@ namespace Schafkopfrechner.Pages
             WhilePlayingViewModel viewModel = new WhilePlayingViewModel();
             viewModel.Players = PlayerManager.Instance.Players;
             viewModel.IsRamschPlayed = GameInfoManager.Instance.GameInfo.Last().GameType == GameInfo.GameTypeEnum.Ramsch ? true : false;
+            viewModel.LegenIsAllowed = GameOptions.Instance.LegenIsAllowed;
+            viewModel.KontraIsAllowed = GameOptions.Instance.KontraIsAllowed;
             this.BindingContext = viewModel;
         }
 
@@ -46,7 +48,7 @@ namespace Schafkopfrechner.Pages
             }
             else
             {
-                if (amountOfWinners != 1)
+                if (amountOfWinners != 1)                     
                 {
                     await DisplayAlert("Fehler", "Ein Solo/Ramsch hat einen Gewinner", "OK");
                     return;
@@ -60,6 +62,8 @@ namespace Schafkopfrechner.Pages
     public class WhilePlayingViewModel : INotifyPropertyChanged
     {
         private bool _isRamschPlayed;
+        private bool _LegenIsAllowed;
+        private bool _KontraIsAllowed;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -74,6 +78,32 @@ namespace Schafkopfrechner.Pages
                 {
                     _isRamschPlayed = value;
                     OnPropertyChanged(nameof(IsRamschPlayed));
+                }
+            }
+        }
+
+        public bool LegenIsAllowed
+        {
+            get => _LegenIsAllowed;
+            set
+            {
+                if (_LegenIsAllowed != value)
+                {
+                    _LegenIsAllowed = value;
+                    OnPropertyChanged(nameof(LegenIsAllowed));
+                }
+            }
+        }
+
+        public bool KontraIsAllowed
+        {
+            get => _KontraIsAllowed;
+            set
+            {
+                if (_KontraIsAllowed != value)
+                {
+                    _KontraIsAllowed = value;
+                    OnPropertyChanged(nameof(KontraIsAllowed));
                 }
             }
         }

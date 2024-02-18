@@ -9,16 +9,20 @@ namespace Schafkopfrechner.DataStructures
 {
     class PlayerHistoryManager
     {
+        private static readonly object _lock = new object();
         private static PlayerHistoryManager instance;
         public static PlayerHistoryManager Instance
         {
             get
             {
-                if (instance == null)
+                lock (_lock)
                 {
-                    instance = new PlayerHistoryManager();
+                    if (instance == null)
+                    {
+                        instance = new PlayerHistoryManager();
+                    }
+                    return instance;
                 }
-                return instance;
             }
         }
 
@@ -61,8 +65,8 @@ namespace Schafkopfrechner.DataStructures
 
     public class PlayerHistory
     {
-        public string Name;
-        public List<HistoryGame> GameHistoryList;
+        public string Name { get; set; }
+        public ObservableCollection<HistoryGame> GameHistoryList { get; set; } = new ObservableCollection<HistoryGame>();
     }
 
     public class HistoryGame

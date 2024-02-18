@@ -10,21 +10,16 @@ namespace Schafkopfrechner.DataStructures
     public class Player : INotifyPropertyChanged
     {
         public string Name { get; set; }
-
         public int BankBalanceInCent { get; set; } = 0;
-
         public bool DidWin { get; set; } = false;
-
         public bool IsGeber { get; set; } = false;
-
-        public bool LegenIsAllowed { get; set; } = false;
-
-        public bool KontraIsAllowed { get; set; } = false;
-
         public bool IsPlayer { get; set; } = false;
+        public bool DidJungfrau { get; set; } = false;
+        public bool IsSchneider { get; set; } = false;
+        public bool IsSchwarz { get; set; } = false;
+        public int AmountOfLaeufer { get; set; } = 0;
 
         private bool didLegen;
-
         public bool DidLegen
         {
             get => didLegen;
@@ -39,7 +34,6 @@ namespace Schafkopfrechner.DataStructures
         }
 
         private bool didKontra { get; set; } = false;
-
         public bool DidKontra
         {
             get => didKontra;
@@ -53,13 +47,25 @@ namespace Schafkopfrechner.DataStructures
             }
         }
 
-        public bool DidJungfrau { get; set; } = false;
+        public Player DeepCopy()
+        {
+            Player copiedPlayer = new Player
+            {
+                Name = this.Name,
+                BankBalanceInCent = this.BankBalanceInCent,
+                DidWin = this.DidWin,
+                IsGeber = this.IsGeber,
+                IsPlayer = this.IsPlayer,
+                DidLegen = this.DidLegen,
+                DidKontra = this.DidKontra,
+                DidJungfrau = this.DidJungfrau,
+                IsSchneider = this.IsSchneider,
+                IsSchwarz = this.IsSchwarz,
+                AmountOfLaeufer = this.AmountOfLaeufer,
+            };
 
-        public bool IsSchneider { get; set; } = false;
-
-        public bool IsSchwarz { get; set; } = false;
-
-        public int AmountOfLaeufer { get; set; } = 0;
+            return copiedPlayer;
+        }
 
         public void ResetPlayValues()
         {
@@ -67,6 +73,9 @@ namespace Schafkopfrechner.DataStructures
             DidKontra = false;
             DidLegen = false;
             DidWin = false;
+            IsPlayer = false;
+            IsSchwarz = false;
+            IsSchneider = false;
             AmountOfLaeufer = 0;
         }
 

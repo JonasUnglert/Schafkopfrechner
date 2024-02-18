@@ -74,20 +74,8 @@ namespace Schafkopfrechner.Pages
             GameOptions.Instance.KontraIsAllowed = isChecked;
         }
 
-        private void KontraSauspielCheckedChanged(object sender, CheckedChangedEventArgs e)
-        {
-            bool isChecked = e.Value; // Der neue Zustand der Checkbox: true, wenn ausgewählt; false, wenn nicht ausgewählt.
-            GameOptions.Instance.KontraSauspielIsAllowed = isChecked;
-        }
         private async void NavigateButton_Clicked(object sender, EventArgs e)
         {
-            // Navigiere zur nächsten Seite
-            for (int i = 0; i < PlayerManager.Instance.Players.Count; i++)
-            {
-                PlayerManager.Instance.Players[i].LegenIsAllowed = GameOptions.Instance.LegenIsAllowed;
-                PlayerManager.Instance.Players[i].KontraIsAllowed = GameOptions.Instance.KontraIsAllowed;
-            }
-
             await Navigation.PushAsync(new RoundStartPage()); // NextPage ist ein Platzhalter für die tatsächliche Seite, zu der navigiert werden soll
         }
 

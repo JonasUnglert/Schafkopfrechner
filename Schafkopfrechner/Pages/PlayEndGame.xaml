@@ -1,32 +1,131 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Schafkopfrechner.Pages.PlayEndGame">
+             xmlns:converters="clr-namespace:Schafkopfrechner.Converters"
+             x:Class="Schafkopfrechner.Pages.PlayEndGame"
+             x:Name="PlayEndGamePageName">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
             <!-- Schneider -->
             <StackLayout Orientation="Horizontal">
-                <CheckBox IsChecked="False" CheckedChanged="SchneiderCheckedChanged"/>
-                <Label Text="Schneider" VerticalOptions="Center"/>
+                <CheckBox IsChecked="False"
+                          CheckedChanged="SchneiderCheckedChanged"
+                          IsVisible="{Binding IsRamschPlayed, Converter={StaticResource InverseBooleanConverter}}"/>
+                <Label Text="Schneider" 
+                       VerticalOptions="Center"
+                       IsVisible="{Binding IsRamschPlayed, Converter={StaticResource InverseBooleanConverter}}"/>
             </StackLayout>
 
             <!-- Schwarz -->
             <StackLayout Orientation="Horizontal">
-                <CheckBox IsChecked="False" CheckedChanged="SchwarzCheckedChanged"/>
-                <Label Text="Schwarz" VerticalOptions="Center"/>
+                <CheckBox IsChecked="False" 
+                          CheckedChanged="SchwarzCheckedChanged"
+                          IsVisible="{Binding IsRamschPlayed, Converter={StaticResource InverseBooleanConverter}}"/>
+                <Label Text="Schwarz"
+                       VerticalOptions="Center"
+                       IsVisible="{Binding IsRamschPlayed, Converter={StaticResource InverseBooleanConverter}}"/>
             </StackLayout>
 
             <!-- Läufer -->
             <StackLayout Orientation="Horizontal">
-                <Label IsVisible="{Binding NoRamschIsPlayed}" Text="Läufer:"/>
-                <Entry IsVisible="{Binding NoRamschIsPlayed}" x:Name="AmountLaeuferEntry" Keyboard="Numeric" Placeholder="Anzahl Läufer" Text="0" TextChanged="LaeuferEntry_TextChanged"/>
+                <Label IsVisible="{Binding IsRamschPlayed, Converter={StaticResource InverseBooleanConverter}}" 
+                       Text="Läufer:"/>
+                <Entry IsVisible="{Binding IsRamschPlayed, Converter={StaticResource InverseBooleanConverter}}"
+                       x:Name="AmountLaeuferEntry" 
+                       Keyboard="Numeric" 
+                       Placeholder="0" 
+                       Text="0" 
+                       TextChanged="LaeuferEntry_TextChanged"/>
             </StackLayout>
 
             <!-- Berechne Button -->
-            <Button Text="Berechne" Clicked="CalculateButton_Clicked" VerticalOptions="EndAndExpand"/>
+            <Button Text="Berechne" Clicked="CalculateButton_Clicked" VerticalOptions="End"/>
+
+            <Label Text="{Binding GamePrice}"
+                   IsVisible="{Binding ShowGamePrice}"/>
+
+            <ListView ItemsSource="{Binding Players}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" 
+                                         Padding="8,0">
+                                <Label Text="{Binding Name}" 
+                                       TextColor="Black" FontSize="14" 
+                                       HorizontalOptions="Start" WidthRequest="90" 
+                                       VerticalOptions="Center">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label" 
+                                                     Binding="{Binding IsPlayer}" 
+                                                     Value="True">
+                                            <Setter Property="FontAttributes" 
+                                                    Value="Bold"/>
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Label" 
+                                                     Binding="{Binding IsGeber}" 
+                                                     Value="True">
+                                            <Setter Property="TextColor" 
+                                                    Value="Red"/>
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+
+                                <Label Text="{Binding BankBalanceInCent}" 
+                                       VerticalOptions="Center" HorizontalOptions="Start" 
+                                       HorizontalTextAlignment="End" 
+                                       WidthRequest="35"/>
+
+                                <Label Text="Ct." 
+                                       FontSize="14" 
+                                       VerticalOptions="Center" 
+                                       HorizontalOptions="StartAndExpand" 
+                                       WidthRequest="18"/>
+
+                                <CheckBox IsEnabled="False"
+                                          Color="Gray" 
+                                          IsChecked="{Binding DidLegen}"
+                                          HorizontalOptions="Start" 
+                                          WidthRequest="35" 
+                                          IsVisible="{Binding Source={x:Reference PlayEndGamePageName}, Path=BindingContext.LegenIsAllowed}"/>
+
+                                <CheckBox IsEnabled="False" 
+                                          Color="Black" 
+                                          IsChecked="{Binding DidKontra}"
+                                          HorizontalOptions="Start" WidthRequest="35"
+                                          IsVisible="{Binding Source={x:Reference PlayEndGamePageName}, Path=BindingContext.KontraIsAllowed}"/>
+
+                                <CheckBox Color="Black" 
+                                          IsEnabled="False" 
+                                          IsChecked="{Binding DidJungfrau}" HorizontalOptions="End"
+                                          WidthRequest="35"
+                                          IsVisible="{Binding Source={x:Reference PlayEndGamePageName}, Path=BindingContext.IsRamschPlayed}"/>
+
+                                <CheckBox IsEnabled="False"
+                                          Color="LimeGreen" 
+                                          IsChecked="{Binding DidWin}"
+                                          HorizontalOptions="Start" 
+                                          IsVisible="true" 
+                                          WidthRequest="35"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
             <!-- Nächste Runde Button -->
-            <Button Text="Nächste Runde" Clicked="NextRoundButton_Clicked" VerticalOptions="EndAndExpand"/>
+            <Button Text="Nächste Runde" 
+                    Clicked="NextRoundButton_Clicked" 
+                    VerticalOptions="Start"/>
+
+            <Button Text="Spiel beenden" 
+                    Clicked="NextRoundButton_Clicked" 
+                    VerticalOptions="EndAndExpand"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

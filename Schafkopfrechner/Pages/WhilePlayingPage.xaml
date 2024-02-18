@@ -1,37 +1,160 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Schafkopfrechner.Pages.WhilePlayingPage">
+             x:Class="Schafkopfrechner.Pages.WhilePlayingPage"
+             x:Name="WhilePlayingPageName">
+
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" VerticalOptions="Start">
-            <!-- Legen ist erlaubt -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="98"/>
+                    <!-- Name -->
+                    <ColumnDefinition Width="55"/>
+                    <!-- Kontostand -->
+                    <ColumnDefinition Width="110"/>
+                    <!-- Fueller -->
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Text="Name"
+                       TextColor="Black"
+                       FontAttributes="Bold"
+                       Grid.Column="0"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center"/>
+                <Label Text="€" 
+                       TextColor="Black"
+                       FontAttributes="Bold" 
+                       Grid.Column="1"
+                       HorizontalOptions="End" 
+                       VerticalOptions="Center" 
+                       HorizontalTextAlignment="End"/>
+                <Label Text="" 
+                       TextColor="Black"
+                       FontAttributes="Bold" 
+                       Grid.Column="2"
+                       HorizontalOptions="End" 
+                       VerticalOptions="Center" 
+                       HorizontalTextAlignment="End"/>
+                <Label Text="L" 
+                       TextColor="Black"
+                       FontAttributes="Bold" 
+                       Grid.Column="3"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center" 
+                       HorizontalTextAlignment="End"
+                       IsVisible="{Binding Source={x:Reference WhilePlayingPageName}, Path=BindingContext.LegenIsAllowed}"/>
+                <Label Text="K" 
+                       TextColor="Black"
+                       FontAttributes="Bold" 
+                       Grid.Column="4"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center"
+                       HorizontalTextAlignment="End"
+                       IsVisible="{Binding Source={x:Reference WhilePlayingPageName}, Path=BindingContext.KontraIsAllowed}"/>
+                <Label Text="JF" 
+                       TextColor="Black"
+                       FontAttributes="Bold" 
+                       Grid.Column="5" 
+                       HorizontalOptions="End" 
+                       VerticalOptions="Center"
+                       HorizontalTextAlignment="End"
+                       IsVisible="{Binding Source={x:Reference WhilePlayingPageName}, Path=BindingContext.IsRamschPlayed}"/>
+                <Label Text="S"
+                       TextColor="Black"
+                       FontAttributes="Bold" 
+                       Grid.Column="6"
+                       HorizontalOptions="End"
+                       HorizontalTextAlignment="End"
+                       VerticalOptions="Center"/>
+            </Grid>
+
             <ListView ItemsSource="{Binding Players}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Orientation="Horizontal" Padding="8,0">
-                                <Label Text="{Binding Name}" TextColor="Black" FontSize="14" HorizontalOptions="StartAndExpand" WidthRequest="120" VerticalOptions="Center">
+                            <StackLayout 
+                                Orientation="Horizontal" 
+                                Padding="8,0">
+                                <Label 
+                                    Text="{Binding Name}"
+                                    TextColor="Black"
+                                    FontSize="14"
+                                    HorizontalOptions="Start" 
+                                    WidthRequest="90" 
+                                    VerticalOptions="Center">
                                     <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding IsPlayer}" Value="True">
-                                            <Setter Property="FontAttributes" Value="Bold"/>
+                                        <DataTrigger
+                                            TargetType="Label" 
+                                            Binding="{Binding IsPlayer}" 
+                                            Value="True">
+                                            <Setter 
+                                                Property="FontAttributes" 
+                                                Value="Bold"/>
                                         </DataTrigger>
-                                        <DataTrigger TargetType="Label" Binding="{Binding IsGeber}" Value="True">
-                                            <Setter Property="TextColor" Value="Red"/>
+                                        <DataTrigger 
+                                            TargetType="Label" 
+                                            Binding="{Binding IsGeber}" 
+                                            Value="True">
+                                            <Setter 
+                                                Property="TextColor"
+                                                Value="Red"/>
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
-                                <Label Text="{Binding BankBalanceInCent}" VerticalOptions="Center" HorizontalOptions="EndAndExpand" WidthRequest="50"/>
-                                <Label Text="Cent" FontSize="14" VerticalOptions="Center" HorizontalOptions="StartAndExpand" WidthRequest="50"/>
-                                <CheckBox IsEnabled="False" IsChecked="{Binding DidLegen}" HorizontalOptions="StartAndExpand" IsVisible="{Binding LegenIsAllowed}"/>
-                                <CheckBox IsEnabled="true" IsChecked="{Binding DidKontra}" HorizontalOptions="StartAndExpand" IsVisible="{Binding KontraIsAllowed}"/>
-                                <CheckBox Color="Black" IsEnabled="true" IsChecked="{Binding DidJungfrau}" HorizontalOptions="StartAndExpand" IsVisible="{Binding IsRamschPlayed}"/>
-                                <CheckBox Color="Green" IsChecked="{Binding DidWin}" HorizontalOptions="StartAndExpand" IsVisible="true"/>
+
+                                <Label 
+                                    Text="{Binding BankBalanceInCent}" 
+                                    VerticalOptions="Center" 
+                                    HorizontalOptions="Start" 
+                                    HorizontalTextAlignment="Start" 
+                                    WidthRequest="35"/>
+
+                                <Label
+                                    Text="Ct." 
+                                    FontSize="14" 
+                                    VerticalOptions="Center" 
+                                    HorizontalOptions="Start" 
+                                    WidthRequest="18"/>
+
+                                <CheckBox IsEnabled="False" 
+                                          Color="Gray" 
+                                          IsChecked="{Binding DidLegen}" 
+                                          HorizontalOptions="Start" 
+                                          WidthRequest="35" 
+                                          IsVisible="{Binding Source={x:Reference WhilePlayingPageName}, Path=BindingContext.LegenIsAllowed}"/>
+
+                                <CheckBox IsEnabled="true" 
+                                          Color="Black" 
+                                          IsChecked="{Binding DidKontra}" 
+                                          HorizontalOptions="Start" 
+                                          WidthRequest="35"
+                                          IsVisible="{Binding Source={x:Reference WhilePlayingPageName}, Path=BindingContext.KontraIsAllowed}"/>
+
+                                <CheckBox Color="Black" 
+                                          IsEnabled="true" 
+                                          IsChecked="{Binding DidJungfrau}" 
+                                          HorizontalOptions="End" 
+                                          WidthRequest="35"
+                                          IsVisible="{Binding Source={x:Reference WhilePlayingPageName}, Path=BindingContext.IsRamschPlayed}"/>
+
+                                <CheckBox 
+                                    Color="LimeGreen" 
+                                    IsChecked="{Binding DidWin}" 
+                                    HorizontalOptions="Start" 
+                                    IsVisible="true" 
+                                    WidthRequest="35"/>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button x:Name="Spielende" 
+            <Button 
+                x:Name="Spielende" 
                 Text="Spielende" 
                 Clicked="PlayEndsButton_Clicked"/>
         </StackLayout>

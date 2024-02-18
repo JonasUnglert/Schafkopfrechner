@@ -2,10 +2,17 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              x:Class="Schafkopfrechner.FrontPage">
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal" VerticalOptions="Center" Spacing="10">
+            <Image Source="D:\git\Schafkopfrechner\Schafkopfrechner\Resources\appLogo.png" WidthRequest="30" HeightRequest="30"/>
+            <Label Text="Schafkopfrechner" VerticalOptions="Center" />
+            <!-- Weitere Elemente hier hinzufügen -->
+        </StackLayout>
+    </NavigationPage.TitleView>
     <Button HorizontalOptions="Center" 
             VerticalOptions="Start" 
             Text="New Game" 
             Clicked="OnNewGameClicked">
-        
+
     </Button>
 </ContentPage>

@@ -24,6 +24,7 @@ namespace Schafkopfrechner.Pages
             RoundStartViewModel viewModel = new RoundStartViewModel();
             viewModel.Players = PlayerManager.Instance.Players;
             viewModel.IsRamschAllowed = GameOptions.Instance.RamschIsAllowed;
+            viewModel.IsLegenAllowed = GameOptions.Instance.LegenIsAllowed;
             this.BindingContext = viewModel;
 
             GameInfo gameInfo = new GameInfo();
@@ -66,6 +67,8 @@ namespace Schafkopfrechner.Pages
     {
         private bool _isRamschAllowed;
 
+        private bool _isLegenAllowed;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ObservableCollection<Player> Players { get; set; }
@@ -83,6 +86,18 @@ namespace Schafkopfrechner.Pages
             }
         }
 
+        public bool IsLegenAllowed
+        {
+            get => _isLegenAllowed;
+            set
+            {
+                if (_isLegenAllowed != value)
+                {
+                    _isLegenAllowed = value;
+                    OnPropertyChanged(nameof(_isLegenAllowed));
+                }
+            }
+        }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

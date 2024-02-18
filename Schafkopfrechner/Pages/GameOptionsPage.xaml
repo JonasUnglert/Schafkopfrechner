@@ -10,41 +10,80 @@
        HorizontalOptions="Center" 
        VerticalOptions="Center" />
 
-            <StackLayout Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="Start">
-                <CheckBox IsChecked="True" CheckedChanged="SoloCheckedChanged"/>
-                <Label Text="Solo" VerticalOptions="Center"/>
+            <StackLayout 
+                Orientation="Horizontal"
+                VerticalOptions="Start" 
+                HorizontalOptions="Start">
+                <CheckBox 
+                    IsChecked="False" 
+                    CheckedChanged="SoloCheckedChanged"/>
+                <Label 
+                    Text="Solo" 
+                    VerticalOptions="Center"/>
             </StackLayout>
 
-            <StackLayout Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="Start">
-                <CheckBox IsChecked="True" CheckedChanged="WenzCheckedChanged"/>
-                <Label Text="Wenz" VerticalOptions="Center"/>
+            <StackLayout 
+                Orientation="Horizontal" 
+                VerticalOptions="Start" 
+                HorizontalOptions="Start">
+                <CheckBox 
+                    IsChecked="False" 
+                    CheckedChanged="WenzCheckedChanged"/>
+                <Label 
+                    Text="Wenz" 
+                    VerticalOptions="Center"/>
             </StackLayout>
 
-            <StackLayout Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="Start">
-                <CheckBox IsChecked="True" CheckedChanged="SauspielCheckedChanged"/>
-                <Label Text="Sauspiel" VerticalOptions="Center"/>
+            <StackLayout 
+                Orientation="Horizontal" 
+                VerticalOptions="Start" 
+                HorizontalOptions="Start">
+                <CheckBox 
+                    IsChecked="False" 
+                    CheckedChanged="SauspielCheckedChanged"/>
+                <Label 
+                    Text="Sauspiel" 
+                    VerticalOptions="Center"/>
             </StackLayout>
 
-            <StackLayout Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="Start">
-                <CheckBox IsChecked="True" CheckedChanged="RamschCheckedChanged"/>
-                <Label Text="Ramsch" VerticalOptions="Center"/>
+            <StackLayout 
+                Orientation="Horizontal" 
+                VerticalOptions="Start" 
+                HorizontalOptions="Start">
+                <CheckBox 
+                    IsChecked="False" 
+                    CheckedChanged="RamschCheckedChanged"/>
+                <Label 
+                    Text="Ramsch" 
+                    VerticalOptions="Center"/>
             </StackLayout>
 
-            <StackLayout Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="Start">
-                <CheckBox IsChecked="False" CheckedChanged="LegenCheckedChanged"/>
-                <Label Text="Legen" VerticalOptions="Center"/>
+            <StackLayout 
+                Orientation="Horizontal" 
+                VerticalOptions="Start" 
+                HorizontalOptions="Start">
+                <CheckBox 
+                    IsChecked="False" 
+                    CheckedChanged="LegenCheckedChanged"/>
+                <Label 
+                    Text="Legen" 
+                    VerticalOptions="Center"/>
             </StackLayout>
 
-            <StackLayout Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="Start">
-                <CheckBox IsChecked="False" CheckedChanged="KontraCheckedChanged"/>
-                <Label Text="Kontra" VerticalOptions="Center"/>
+            <StackLayout
+                Orientation="Horizontal" 
+                VerticalOptions="Start" 
+                HorizontalOptions="Start">
+                <CheckBox 
+                    IsChecked="False" 
+                    CheckedChanged="KontraCheckedChanged"/>
+                <Label 
+                    Text="Kontra" 
+                    VerticalOptions="Center"/>
             </StackLayout>
 
-            <StackLayout Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="Start">
-                <CheckBox IsChecked="False" CheckedChanged="KontraSauspielCheckedChanged"/>
-                <Label Text="Kontra bei Sauspiel" VerticalOptions="Center"/>
-            </StackLayout>
-            <Button x:Name="NextButton" 
+            <Button 
+                x:Name="NextButton" 
                 Text="Weiter" 
                 Clicked="NavigateButton_Clicked" 
                 VerticalOptions="EndAndExpand"

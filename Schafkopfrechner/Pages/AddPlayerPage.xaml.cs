@@ -18,13 +18,24 @@ namespace Schafkopfrechner.Pages
         {
             InitializeComponent();
             PlayerManager.Instance.Players.CollectionChanged += Players_CollectionChanged;
+
+#if DEBUG
+            List<string> exampleNames = new List<string>() { "Hans", "Peter", "Dieter", "Olaf" };
+
+            for (int i = 0; i < 4; i++)
+            {
+                var player = new Player { Name = exampleNames[i] };
+                PlayerManager.Instance.Players.Add(player);
+            }
+#endif
+
             BindingContext = PlayerManager.Instance.Players;
         }
 
         private void Players_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             // Button sichtbar machen, wenn vier oder mehr Spieler hinzugefügt wurden
-            NextButton.IsVisible = PlayerManager.Instance.Players.Count >= 1; // TODO wieder auf min. 4 stellen
+            NextButton.IsVisible = PlayerManager.Instance.Players.Count >= 4; 
         }
 
         private async void OnAddPlayer_Clicked(object sender, EventArgs e)

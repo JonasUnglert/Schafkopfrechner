@@ -15,12 +15,12 @@ namespace Schafkopfrechner.DataStructures
         }
 
         public int PriceInCent { get; set; } = 10;
-        public bool SoloIsAllowed { get; set; } = true;
-        public bool WenzIsAllowed { get; set; } = true;
+        public bool SoloIsAllowed { get; set; } = false;
+        public bool WenzIsAllowed { get; set; } = false;
 
-        public bool SauspielIsAllowed { get; set; } = true;
+        public bool SauspielIsAllowed { get; set; } = false;
 
-        public bool RamschIsAllowed { get; set; } = true;
+        public bool RamschIsAllowed { get; set; } = false;
         public bool LegenIsAllowed { get; set; } = false;
         public bool KontraIsAllowed { get; set; } = false;
         public bool KontraSauspielIsAllowed { get; set; } = false;

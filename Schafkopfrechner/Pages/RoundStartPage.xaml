@@ -49,7 +49,8 @@
                                     HorizontalOptions="End"
                                     IsVisible="{Binding Source={x:Reference RoundStartPageName}, Path=BindingContext.IsLegenAllowed}"/>
                                 <Button 
-                                    Text="SPIELE" 
+                                    Text="SPIELE"
+                                    FontSize="13"
                                     Clicked="PlayerButton_Clicked" 
                                     CommandParameter="{Binding Name}"/>
                             </StackLayout>

@@ -2,7 +2,30 @@
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Schafkopfrechner.App">
-    <Application.Resources>
 
+    <Application.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontFamily" Value="oldFont" />
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="oldFont" />
+            <Setter Property="FontSize" Value="Default" />
+            <Setter Property="BackgroundColor" Value="DarkGreen" />
+            <!-- Example color -->
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="BorderRadius" Value="15" />
+            <Setter Property="Margin" Value="5" />
+        </Style>
+
+        <Style TargetType="ContentPage">
+            <Setter Property="BackgroundColor" Value="Brown" />
+            <!-- Example light gray background color -->
+        </Style>
+
+        <Style TargetType="CheckBox">
+            <Setter Property="Color" Value="Black"/>
+        </Style>
     </Application.Resources>
 </Application>

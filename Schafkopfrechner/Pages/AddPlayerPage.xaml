@@ -4,8 +4,12 @@
              x:Class="Schafkopfrechner.Pages.AddPlayerPage">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="-" Clicked="OnRemovePlayer_Clicked"/>
-        <ToolbarItem Text="+" Clicked="OnAddPlayer_Clicked"/>
+        
+        <ToolbarItem Text="-"
+                     
+                     Clicked="OnRemovePlayer_Clicked"/>
+        <ToolbarItem Text="+"
+                     Clicked="OnAddPlayer_Clicked"/>
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
@@ -13,7 +17,7 @@
             <ListView ItemsSource="{Binding}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding Name}" />
+                        <TextCell Text="{Binding Name}" TextColor="Black" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

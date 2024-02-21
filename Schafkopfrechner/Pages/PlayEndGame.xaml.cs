@@ -88,25 +88,20 @@ namespace Schafkopfrechner.Pages
 
             if (!int.TryParse(e.NewTextValue, out int inputAmountOfLaeufer) && e.NewTextValue != string.Empty)
             {
-                isProgrammaticChange=true;
+                isProgrammaticChange = true;
                 await DisplayAlert("Falscher Wert", "Bitte nur Zahlenwerte eingeben", "OK");
-                ((Entry)sender).Text = e.OldTextValue;
+                ((Entry)sender).Text = "";
                 isProgrammaticChange = false;
                 return;
             }
 
             amountOfLaeufer = inputAmountOfLaeufer;
-
-            for (int i = 0; i < PlayerManager.Instance.Players.Count; i++)
-            {
-                PlayerManager.Instance.Players[i].AmountOfLaeufer = amountOfLaeufer;
-            }
         }
 
         private async void CalculateButton_Clicked(object sender, EventArgs e)
         {
 
-            if (amountOfLaeufer != 0 && (amountOfLaeufer < 2 || amountOfLaeufer > 8))
+            if (amountOfLaeufer != 0 && (amountOfLaeufer < 3 || amountOfLaeufer > 8))
             {
                 await DisplayAlert("Falscher Wert", "Die Läuferanzahl darf nur zwischen 2 und 8 sein", "OK");
                 return;
@@ -132,8 +127,7 @@ namespace Schafkopfrechner.Pages
 
             int schneiderPrice = isSchneiderGame ? GameOptions.Instance.PriceInCent : 0;
             int schwarzPrice = isSchwarzGame ? GameOptions.Instance.PriceInCent : 0;
-
-            int läuferPrice = GameOptions.Instance.PriceInCent * PlayerManager.Instance.Players.Max(p => p.AmountOfLaeufer);
+            int läuferPrice = amountOfLaeufer * GameOptions.Instance.PriceInCent;
 
             läuferPrice = isRamsch ? 0 : läuferPrice;
             schneiderPrice = isRamsch ? 0 : schneiderPrice;
@@ -160,6 +154,8 @@ namespace Schafkopfrechner.Pages
             {
                 var playerCopy = player.DeepCopy();
 
+                playerCopy.AmountOfLaeufer = amountOfLaeufer;
+
                 if (playerCopy.DidWin == true)
                 {
                     int soloFactor = isSolo ? 3 : 1;
@@ -183,14 +179,14 @@ namespace Schafkopfrechner.Pages
             viewModel.ShowGamePrice = true;//this.isProgrammaticChange;
             viewModel.GamePrice = totalGamePrice;//this.gamePrice;
             this.calculationExecuted = true;
-            
+
         }
 
         private async void NextRoundButton_Clicked(object sender, EventArgs e)
         {
             if (calculationExecuted == false)
             {
-                await DisplayAlert("Abrechnung fehlt", "Spiel muss noch abgerechnet werden.", "OK");
+                await DisplayAlert("Abrechnung fehlt", "Spiel bitte abrechnen.", "OK");
                 return;
             }
 
@@ -219,7 +215,20 @@ namespace Schafkopfrechner.Pages
 
             await Navigation.PushAsync(new RoundStartPage());
         }
+
+        private async void EndGameButton_clicked(object sender, EventArgs e)
+        {
+
+            bool wantsToContinue = await DisplayAlert("Beenden?", "Wenn du das Spiel beendest gehen die Spielstände verloren!", "Nein", "Ja");
+            if (wantsToContinue)
+            {
+                return;
+            }
+
+            await Navigation.PushAsync(new FrontPage());
+        }
     }
+
 
     public class PlayEndGameViewModel : INotifyPropertyChanged
     {

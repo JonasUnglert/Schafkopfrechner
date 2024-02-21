@@ -143,7 +143,7 @@
                                           IsVisible="{Binding Source={x:Reference WhilePlayingPageName}, Path=BindingContext.IsRamschPlayed}"/>
 
                                 <CheckBox 
-                                    Color="LimeGreen" 
+                                    Color="DarkGreen" 
                                     IsChecked="{Binding DidWin}" 
                                     HorizontalOptions="Start" 
                                     IsVisible="true" 

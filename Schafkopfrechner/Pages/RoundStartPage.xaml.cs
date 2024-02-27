@@ -19,17 +19,19 @@ namespace Schafkopfrechner.Pages
     {
         public RoundStartPage()
         {
+            this.BackgroundImageSource = "woodBackground.png";
             InitializeComponent();
 
             RoundStartViewModel viewModel = new RoundStartViewModel();
-            viewModel.Players = PlayerManager.Instance.Players;
-            viewModel.IsRamschAllowed = GameOptions.Instance.RamschIsAllowed;
-            viewModel.IsLegenAllowed = GameOptions.Instance.LegenIsAllowed;
+            viewModel.Players = RoundPlayerManager.Instance.Players;
+            viewModel.IsRamschAllowed = GeneralGameRules.Instance.RamschIsAllowed;
+            viewModel.IsLegenAllowed = GeneralGameRules.Instance.LegenIsAllowed;
             this.BindingContext = viewModel;
 
             GameInfo gameInfo = new GameInfo();
             gameInfo.dateTime = DateTime.Now;
-            gameInfo.Players = PlayerManager.Instance.Players.ToList();
+            gameInfo.Players = RoundPlayerManager.Instance.Players;
+            gameInfo.BaseRoundPrice = GeneralGameRules.Instance.PriceInCent;
             GameInfoManager.Instance.GameInfo.Add(gameInfo);
         }
 
@@ -41,11 +43,11 @@ namespace Schafkopfrechner.Pages
             {
                 string playerName = button.CommandParameter as string;
 
-                Player playingPlayer = PlayerManager.Instance.Players.First(p => p.Name == playerName);
+                RoundPlayer playingPlayer = RoundPlayerManager.Instance.Players.First(p => p.Name == playerName);
 
-                int indexOfPlayingPlayer = PlayerManager.Instance.Players.IndexOf(playingPlayer);
+                int indexOfPlayingPlayer = RoundPlayerManager.Instance.Players.IndexOf(playingPlayer);
 
-                PlayerManager.Instance.Players[indexOfPlayingPlayer].IsPlayer = true;
+                RoundPlayerManager.Instance.Players[indexOfPlayingPlayer].IsPlayer = true;
 
                 this.NavigateToChooseGamePage();
             }
@@ -71,7 +73,7 @@ namespace Schafkopfrechner.Pages
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ObservableCollection<Player> Players { get; set; }
+        public ObservableCollection<RoundPlayer> Players { get; set; }
 
         public bool IsRamschAllowed
         {

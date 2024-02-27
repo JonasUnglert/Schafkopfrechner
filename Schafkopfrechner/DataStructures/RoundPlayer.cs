@@ -7,13 +7,14 @@ using Xamarin.Forms;
 
 namespace Schafkopfrechner.DataStructures
 {
-    public class Player : INotifyPropertyChanged
+    public class RoundPlayer : INotifyPropertyChanged
     {
         public string Name { get; set; }
         public int BankBalanceInCent { get; set; } = 0;
         public bool DidWin { get; set; } = false;
         public bool IsGeber { get; set; } = false;
         public bool IsPlayer { get; set; } = false;
+        public bool DidSchuss { get; set; } = false;
         public bool DidJungfrau { get; set; } = false;
         public bool IsSchneider { get; set; } = false;
         public bool IsSchwarz { get; set; } = false;
@@ -47,9 +48,9 @@ namespace Schafkopfrechner.DataStructures
             }
         }
 
-        public Player DeepCopy()
+        public RoundPlayer DeepCopy()
         {
-            Player copiedPlayer = new Player
+            RoundPlayer copiedPlayer = new RoundPlayer
             {
                 Name = this.Name,
                 BankBalanceInCent = this.BankBalanceInCent,

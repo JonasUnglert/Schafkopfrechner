@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Schafkopfrechner.Pages.GameOptionsPage">
+             x:Class="Schafkopfrechner.Pages.GameRulesPage">
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Preis einer Runde in Cent:"></Label>
@@ -10,7 +10,7 @@
                    Placeholder="Rundenpreis in Cent"
                    Text= "10" 
                    TextChanged="PriceEntry_TextChanged"/>
-            <Label Text="Auwählen welche Optionen erlaubt sind:" 
+            <Label Text="Spielmodi:" 
        HorizontalOptions="Center" 
        VerticalOptions="Center" />
 
@@ -19,7 +19,7 @@
                 VerticalOptions="Start" 
                 HorizontalOptions="Start">
                 <CheckBox 
-                    IsChecked="False" 
+                    IsChecked="True" 
                     CheckedChanged="SoloCheckedChanged"/>
                 <Label 
                     Text="Solo" 
@@ -31,7 +31,7 @@
                 VerticalOptions="Start" 
                 HorizontalOptions="Start">
                 <CheckBox 
-                    IsChecked="False" 
+                    IsChecked="True" 
                     CheckedChanged="WenzCheckedChanged"/>
                 <Label 
                     Text="Wenz" 
@@ -43,7 +43,7 @@
                 VerticalOptions="Start" 
                 HorizontalOptions="Start">
                 <CheckBox 
-                    IsChecked="False" 
+                    IsChecked="True" 
                     CheckedChanged="SauspielCheckedChanged"/>
                 <Label 
                     Text="Sauspiel" 
@@ -55,7 +55,7 @@
                 VerticalOptions="Start" 
                 HorizontalOptions="Start">
                 <CheckBox 
-                    IsChecked="False" 
+                    IsChecked="True" 
                     CheckedChanged="RamschCheckedChanged"/>
                 <Label 
                     Text="Ramsch" 
@@ -67,7 +67,7 @@
                 VerticalOptions="Start" 
                 HorizontalOptions="Start">
                 <CheckBox 
-                    IsChecked="False" 
+                    IsChecked="True" 
                     CheckedChanged="LegenCheckedChanged"/>
                 <Label 
                     Text="Legen" 
@@ -79,7 +79,7 @@
                 VerticalOptions="Start" 
                 HorizontalOptions="Start">
                 <CheckBox 
-                    IsChecked="False" 
+                    IsChecked="True" 
                     CheckedChanged="KontraCheckedChanged"/>
                 <Label 
                     Text="Kontra" 

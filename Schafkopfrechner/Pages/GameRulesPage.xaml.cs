@@ -11,11 +11,12 @@ using Xamarin.Forms.Xaml;
 namespace Schafkopfrechner.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class GameOptionsPage : ContentPage
+    public partial class GameRulesPage : ContentPage
     {
         private bool isProgrammaticChange = false; 
-        public GameOptionsPage()
+        public GameRulesPage()
         {
+            this.BackgroundImageSource = "woodBackground.png";
             InitializeComponent();
         }
 
@@ -36,42 +37,42 @@ namespace Schafkopfrechner.Pages
                 return;
             }
 
-            GameOptions.Instance.PriceInCent = priceInCent;
+            GeneralGameRules.Instance.PriceInCent = priceInCent;
         }
 
         private void SoloCheckedChanged(object sender, CheckedChangedEventArgs e)
         {
             bool isChecked = e.Value; // Der neue Zustand der Checkbox: true, wenn ausgewählt; false, wenn nicht ausgewählt.
-            GameOptions.Instance.SoloIsAllowed = isChecked;
+            GeneralGameRules.Instance.SoloIsAllowed = isChecked;
         }
 
         private void WenzCheckedChanged(object sender, CheckedChangedEventArgs e)
         {
             bool isChecked = e.Value; // Der neue Zustand der Checkbox: true, wenn ausgewählt; false, wenn nicht ausgewählt.
-            GameOptions.Instance.WenzIsAllowed = isChecked;
+            GeneralGameRules.Instance.WenzIsAllowed = isChecked;
         }
         private void SauspielCheckedChanged(object sender, CheckedChangedEventArgs e)
         {
             bool isChecked = e.Value; // Der neue Zustand der Checkbox: true, wenn ausgewählt; false, wenn nicht ausgewählt.
-            GameOptions.Instance.SauspielIsAllowed = isChecked;
+            GeneralGameRules.Instance.SauspielIsAllowed = isChecked;
         }
 
         private void RamschCheckedChanged(object sender, CheckedChangedEventArgs e)
         {
             bool isChecked = e.Value; // Der neue Zustand der Checkbox: true, wenn ausgewählt; false, wenn nicht ausgewählt.
-            GameOptions.Instance.RamschIsAllowed = isChecked;
+            GeneralGameRules.Instance.RamschIsAllowed = isChecked;
         }
 
         private void LegenCheckedChanged(object sender, CheckedChangedEventArgs e)
         {
             bool isChecked = e.Value; // Der neue Zustand der Checkbox: true, wenn ausgewählt; false, wenn nicht ausgewählt.
-            GameOptions.Instance.LegenIsAllowed = isChecked;
+            GeneralGameRules.Instance.LegenIsAllowed = isChecked;
         }
 
         private void KontraCheckedChanged(object sender, CheckedChangedEventArgs e)
         {
             bool isChecked = e.Value; // Der neue Zustand der Checkbox: true, wenn ausgewählt; false, wenn nicht ausgewählt.
-            GameOptions.Instance.KontraIsAllowed = isChecked;
+            GeneralGameRules.Instance.KontraIsAllowed = isChecked;
         }
 
         private async void NavigateButton_Clicked(object sender, EventArgs e)

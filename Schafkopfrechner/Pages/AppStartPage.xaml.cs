@@ -11,11 +11,13 @@ using Xamarin.Forms.Xaml;
 namespace Schafkopfrechner
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class FrontPage : ContentPage
+	public partial class AppStartPage : ContentPage
 	{
-		public FrontPage ()
+		public AppStartPage ()
 		{
-			InitializeComponent ();
+			this.BackgroundImageSource = "woodBackground.png";
+
+            InitializeComponent ();
 		}
 
         private async void OnNewGameClicked(object sender, EventArgs e)

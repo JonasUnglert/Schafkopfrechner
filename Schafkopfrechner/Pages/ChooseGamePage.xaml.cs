@@ -16,12 +16,13 @@ namespace Schafkopfrechner.Pages
     {
         public ChooseGamePage()
         {
+            this.BackgroundImageSource = "woodBackground.png";
             InitializeComponent();
 
             ChooseGameViewModel viewModel = new ChooseGameViewModel();
-            viewModel.isSoloAllowed = GameOptions.Instance.SoloIsAllowed;
-            viewModel.isWenzAllowed = GameOptions.Instance.WenzIsAllowed;
-            viewModel.isSauspielAllowed = GameOptions.Instance.SauspielIsAllowed;
+            viewModel.isSoloAllowed = GeneralGameRules.Instance.SoloIsAllowed;
+            viewModel.isWenzAllowed = GeneralGameRules.Instance.WenzIsAllowed;
+            viewModel.isSauspielAllowed = GeneralGameRules.Instance.SauspielIsAllowed;
 
             this.BindingContext = viewModel;
         }

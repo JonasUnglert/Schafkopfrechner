@@ -17,19 +17,28 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Pages\EndOfRoundPage.xaml.cs">
+      <DependentUpon>EndOfRoundPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\AppStartPage.xaml.cs">
+      <DependentUpon>AppStartPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\GameRulesPage.xaml.cs">
+      <DependentUpon>GameRulesPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Update="Pages\AddPlayerPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\ChooseGamePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\FrontPage.xaml">
+    <EmbeddedResource Update="Pages\AppStartPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\GameOptionsPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Pages\PlayEndGame.xaml">
+    <EmbeddedResource Update="Pages\GameRulesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\RoundStartPage.xaml">

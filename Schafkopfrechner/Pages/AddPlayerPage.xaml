@@ -4,7 +4,7 @@
              x:Class="Schafkopfrechner.Pages.AddPlayerPage">
 
     <ContentPage.ToolbarItems>
-        
+
         <ToolbarItem Text="-"
                      
                      Clicked="OnRemovePlayer_Clicked"/>
@@ -17,7 +17,14 @@
             <ListView ItemsSource="{Binding}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding Name}" TextColor="Black" />
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Name}"
+                           TextColor="Black"
+                           FontFamily="oldFont"
+                           FontSize="Large"/>
+                            </StackLayout>
+                        </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:Schafkopfrechner.Converters"
-             x:Class="Schafkopfrechner.Pages.PlayEndGame"
+             x:Class="Schafkopfrechner.Pages.EndOfRoundPage"
              x:Name="PlayEndGamePageName">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -102,6 +102,12 @@
                                           IsChecked="{Binding DidKontra}"
                                           HorizontalOptions="Start" WidthRequest="35"
                                           IsVisible="{Binding Source={x:Reference PlayEndGamePageName}, Path=BindingContext.KontraIsAllowed}"/>
+
+                                <CheckBox Color="Black" 
+                                          IsEnabled="False" 
+                                          IsChecked="{Binding DidSchuss}" HorizontalOptions="End"
+                                          WidthRequest="35"
+                                          IsVisible="{Binding Source={x:Reference PlayEndGamePageName}, Path=BindingContext.IsRamschPlayed}"/>
 
                                 <CheckBox Color="Black" 
                                           IsEnabled="False" 

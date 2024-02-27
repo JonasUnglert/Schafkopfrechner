@@ -4,24 +4,27 @@
              x:Class="Schafkopfrechner.App">
 
     <Application.Resources>
+        <Style TargetType="NavigationPage">
+            <Setter Property="BarBackgroundColor" Value="Black"/>
+            <Setter Property="BarTextColor" Value="White"/>
+        </Style>
+
         <Style TargetType="Label">
             <Setter Property="TextColor" Value="Black"/>
             <Setter Property="FontFamily" Value="oldFont" />
+            <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
         </Style>
 
         <Style TargetType="Button">
+            <Setter Property="BorderWidth" Value="2"/>
+            <Setter Property="BorderColor" Value="Gray"/>
             <Setter Property="FontFamily" Value="oldFont" />
-            <Setter Property="FontSize" Value="Default" />
-            <Setter Property="BackgroundColor" Value="DarkGreen" />
-            <!-- Example color -->
-            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="FontSize" Value="Default"/>
+            <Setter Property="BackgroundColor" Value="Black"/>
+            <Setter Property="TextColor" Value="White" />
             <Setter Property="BorderRadius" Value="15" />
             <Setter Property="Margin" Value="5" />
-        </Style>
-
-        <Style TargetType="ContentPage">
-            <Setter Property="BackgroundColor" Value="Brown" />
-            <!-- Example light gray background color -->
         </Style>
 
         <Style TargetType="CheckBox">

@@ -18,13 +18,14 @@ namespace Schafkopfrechner.Pages
     {
         public WhilePlayingPage()
         {
+            this.BackgroundImageSource = "woodBackground.png";
             InitializeComponent();
 
             WhilePlayingViewModel viewModel = new WhilePlayingViewModel();
-            viewModel.Players = PlayerManager.Instance.Players;
+            viewModel.Players = RoundPlayerManager.Instance.Players;
             viewModel.IsRamschPlayed = GameInfoManager.Instance.GameInfo.Last().GameType == GameInfo.GameTypeEnum.Ramsch ? true : false;
-            viewModel.LegenIsAllowed = GameOptions.Instance.LegenIsAllowed;
-            viewModel.KontraIsAllowed = GameOptions.Instance.KontraIsAllowed;
+            viewModel.LegenIsAllowed = GeneralGameRules.Instance.LegenIsAllowed;
+            viewModel.KontraIsAllowed = GeneralGameRules.Instance.KontraIsAllowed && !viewModel.IsRamschPlayed;
             this.BindingContext = viewModel;
         }
 
@@ -35,7 +36,7 @@ namespace Schafkopfrechner.Pages
 
         private async void PlayEndsButton_Clicked(object sender, EventArgs e)
         {
-            int amountOfWinners = PlayerManager.Instance.Players.Where(p => p.DidWin).Count();
+            int amountOfWinners = RoundPlayerManager.Instance.Players.Where(p => p.DidWin).Count();
             Console.WriteLine($"amountOfWinners: {amountOfWinners}, Typ: {amountOfWinners.GetType()}");
 
             if (GameInfoManager.Instance.GameInfo.Last().GameType == GameInfo.GameTypeEnum.Sauspiel)
@@ -46,16 +47,26 @@ namespace Schafkopfrechner.Pages
                     return;
                 }
             }
-            else
+            else if (GameInfoManager.Instance.GameInfo.Last().GameType == GameInfo.GameTypeEnum.Ramsch)
             {
-                if (amountOfWinners != 1)                     
+                if (amountOfWinners != 3)                     
                 {
-                    await DisplayAlert("Fehler", "Ein Solo/Ramsch hat einen Gewinner", "OK");
+                    await DisplayAlert("Fehler", "Ein Ramsch hat drei Gewinner", "OK");
                     return;
                 }
             }
+            else
+            {
+                if (amountOfWinners != 1 && amountOfWinners != 3)
+                {
+                    await DisplayAlert("Fehler", "Ein Solo hat einen oder drei Gewinner", "OK");
+                    return;
+                }
 
-            await Navigation.PushAsync(new PlayEndGame());
+            }
+
+
+            await Navigation.PushAsync(new EndOfRoundPage());
         }
     }
 
@@ -67,7 +78,7 @@ namespace Schafkopfrechner.Pages
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ObservableCollection<Player> Players { get; set; }
+        public ObservableCollection<RoundPlayer> Players { get; set; }
 
         public bool IsRamschPlayed
         {

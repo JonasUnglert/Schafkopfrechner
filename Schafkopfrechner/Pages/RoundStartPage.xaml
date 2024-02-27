@@ -19,7 +19,7 @@
                                 <Label 
                                     Text="{Binding Name}" 
                                     FontSize="14" 
-                                    HorizontalOptions="StartAndExpand" 
+                                    HorizontalOptions="Start" 
                                     WidthRequest="120" 
                                     VerticalOptions="Center">
                                     <Label.Triggers>
@@ -29,28 +29,31 @@
                                             Value="True">
                                             <Setter 
                                                 Property="TextColor"
-                                                Value="Red"/>
+                                                Value="Black"/>
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
                                 <Label 
                                     Text="{Binding BankBalanceInCent}"
                                     VerticalOptions="Center" 
-                                    HorizontalOptions="End"
-                                    WidthRequest="35"/>
+                                    HorizontalOptions="Start"
+                                    HorizontalTextAlignment="End"
+                                    WidthRequest="50"/>
                                 <Label 
                                     Text="Ct." FontSize="14"
                                     VerticalOptions="Center" 
-                                    HorizontalOptions="Start" 
+                                    HorizontalOptions="Start"
                                     WidthRequest="18" 
                                     HorizontalTextAlignment="Start"/>
                                 <CheckBox 
                                     IsChecked="{Binding DidLegen}"
-                                    HorizontalOptions="End"
+                                    HorizontalOptions="Start"
                                     IsVisible="{Binding Source={x:Reference RoundStartPageName}, Path=BindingContext.IsLegenAllowed}"/>
                                 <Button 
                                     Text="SPIELE"
                                     FontSize="13"
+                                    HorizontalOptions="End"
+                                    VerticalOptions="Center"
                                     Clicked="PlayerButton_Clicked" 
                                     CommandParameter="{Binding Name}"/>
                             </StackLayout>

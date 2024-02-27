@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Numerics;
 using System.Reflection;
@@ -16,9 +17,12 @@ using Xamarin.Forms.Xaml;
 namespace Schafkopfrechner.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PlayEndGame : ContentPage
+    public partial class EndOfRoundPage : ContentPage
     {
-        ObservableCollection<Player> originalPlayerList = new ObservableCollection<Player>();
+        private const int MaximumAmountLaeufer = 8;
+        private const int MinimumAmountLaeufer = 3;
+
+        ObservableCollection<RoundPlayer> originalPlayerList = new ObservableCollection<RoundPlayer>();
         private bool isOriginalListSaved = false;
         private int amountOfLaeufer = 0;
         private bool isSchneiderGame = false;
@@ -29,26 +33,16 @@ namespace Schafkopfrechner.Pages
         private bool calculationExecuted = false;
         private PlayEndGameViewModel viewModel = new PlayEndGameViewModel();
 
-        public PlayEndGame()
+        public EndOfRoundPage()
         {
             InitializeComponent();
-            viewModel.Players = PlayerManager.Instance.Players;
+            viewModel.Players = RoundPlayerManager.Instance.Players;
             viewModel.IsRamschPlayed = GameInfoManager.Instance.GameInfo.Last().GameType == GameInfo.GameTypeEnum.Ramsch ? true : false;
-            viewModel.LegenIsAllowed = GameOptions.Instance.LegenIsAllowed;
-            viewModel.KontraIsAllowed = GameOptions.Instance.RamschIsAllowed;
+            viewModel.LegenIsAllowed = GeneralGameRules.Instance.LegenIsAllowed;
+            viewModel.KontraIsAllowed = GeneralGameRules.Instance.KontraIsAllowed && !viewModel.IsRamschPlayed;
             viewModel.ShowGamePrice = false;
             viewModel.GamePrice = 0;
             this.BindingContext = viewModel;
-        }
-
-        private void SaveOriginalPlayerList()
-        {
-            if (!isOriginalListSaved)
-            {
-                originalPlayerList.Clear();
-                originalPlayerList = PlayerManager.Instance.MakeCopyPlayerCollection();
-                isOriginalListSaved = true;
-            }
         }
 
         private void SchneiderCheckedChanged(object sender, CheckedChangedEventArgs e)
@@ -57,11 +51,11 @@ namespace Schafkopfrechner.Pages
 
             isSchneiderGame = isChecked ? true : false;
 
-            var losingPlayers = PlayerManager.Instance.Players.Where(p => p.DidWin == false);
+            var losingPlayers = RoundPlayerManager.Instance.Players.Where(p => p.DidWin == false);
             foreach (var player in losingPlayers)
             {
-                int indexPlayer = PlayerManager.Instance.Players.IndexOf(player);
-                PlayerManager.Instance.Players[indexPlayer].IsSchneider = isChecked;
+                int indexPlayer = RoundPlayerManager.Instance.Players.IndexOf(player);
+                RoundPlayerManager.Instance.Players[indexPlayer].IsSchneider = isChecked;
             }
         }
 
@@ -70,11 +64,11 @@ namespace Schafkopfrechner.Pages
             bool isChecked = e.Value;
 
             isSchwarzGame = isChecked ? true : false;
-            var losingPlayers = PlayerManager.Instance.Players.Where(p => p.DidWin == false);
+            var losingPlayers = RoundPlayerManager.Instance.Players.Where(p => p.DidWin == false);
             foreach (var player in losingPlayers)
             {
-                int indexPlayer = PlayerManager.Instance.Players.IndexOf(player);
-                PlayerManager.Instance.Players[indexPlayer].IsSchwarz = isChecked;
+                int indexPlayer = RoundPlayerManager.Instance.Players.IndexOf(player);
+                RoundPlayerManager.Instance.Players[indexPlayer].IsSchwarz = isChecked;
             }
         }
 
@@ -96,88 +90,27 @@ namespace Schafkopfrechner.Pages
             }
 
             amountOfLaeufer = inputAmountOfLaeufer;
+
+            foreach (var player in GameInfoManager.Instance.GameInfo.Last().Players)
+            {
+                player.AmountOfLaeufer = amountOfLaeufer;
+            }
         }
+
 
         private async void CalculateButton_Clicked(object sender, EventArgs e)
         {
 
-            if (amountOfLaeufer != 0 && (amountOfLaeufer < 3 || amountOfLaeufer > 8))
+            if (amountOfLaeufer != 0 && (amountOfLaeufer < MinimumAmountLaeufer || amountOfLaeufer > MaximumAmountLaeufer))
             {
                 await DisplayAlert("Falscher Wert", "Die Läuferanzahl darf nur zwischen 2 und 8 sein", "OK");
                 return;
             }
+            
+            GameInfoManager.Instance.GameInfo.Last().CalcNewBankBalance();
 
-            this.SaveOriginalPlayerList();
-
-            var playersToCalculate = new ObservableCollection<Player>(originalPlayerList);
-            int gamePrice = 0;
-            bool isSolo = false;
-            bool isRamsch = false;
-            gamePrice = GameOptions.Instance.PriceInCent;
-
-            if (GameInfoManager.Instance.GameInfo.Last().GameType == GameInfo.GameTypeEnum.Ramsch)
-            {
-                isRamsch = true;
-            }
-            else if (GameInfoManager.Instance.GameInfo.Last().GameType != GameInfo.GameTypeEnum.Sauspiel)
-            {
-                isSolo = true;
-                gamePrice = gamePrice * 5;
-            }
-
-            int schneiderPrice = isSchneiderGame ? GameOptions.Instance.PriceInCent : 0;
-            int schwarzPrice = isSchwarzGame ? GameOptions.Instance.PriceInCent : 0;
-            int läuferPrice = amountOfLaeufer * GameOptions.Instance.PriceInCent;
-
-            läuferPrice = isRamsch ? 0 : läuferPrice;
-            schneiderPrice = isRamsch ? 0 : schneiderPrice;
-            schwarzPrice = isRamsch ? 0 : schwarzPrice;
-
-            int tempPrice = gamePrice + schneiderPrice + schwarzPrice + läuferPrice;
-
-
-            int amountLeger = PlayerManager.Instance.Players.Where(p => p.DidLegen == true).Count();
-            int amountJungfrauen = PlayerManager.Instance.Players.Where(p => p.DidJungfrau == true).Count();
-            int amountKontra = PlayerManager.Instance.Players.Where(p => p.DidKontra == true).Count();
-
-            int legerDoubler = (int)Math.Pow(2, amountLeger);
-            int jungFrauDoubler = (int)Math.Pow(2, amountJungfrauen);
-            int kontraDoubler = (int)Math.Pow(2, amountKontra);
-
-            kontraDoubler = isRamsch ? 1 : kontraDoubler;
-
-            int totalGamePrice = tempPrice * kontraDoubler * legerDoubler;
-
-            PlayerManager.Instance.Players.Clear();
-
-            foreach (var player in originalPlayerList)
-            {
-                var playerCopy = player.DeepCopy();
-
-                playerCopy.AmountOfLaeufer = amountOfLaeufer;
-
-                if (playerCopy.DidWin == true)
-                {
-                    int soloFactor = isSolo ? 3 : 1;
-
-                    int ramschFactor = isRamsch && player.DidKontra ? 2 : 1;
-                    ramschFactor = isRamsch ? -3 * ramschFactor : 1;
-
-                    playerCopy.BankBalanceInCent += (totalGamePrice * soloFactor * ramschFactor);
-                }
-                else
-                {
-                    int ramschFactor = isRamsch && player.DidKontra ? 2 : 1;
-                    ramschFactor = isRamsch ? -1 : 1;
-
-                    playerCopy.BankBalanceInCent -= totalGamePrice * ramschFactor;
-                }
-
-                PlayerManager.Instance.Players.Add(playerCopy);
-            }
-
-            viewModel.ShowGamePrice = true;//this.isProgrammaticChange;
-            viewModel.GamePrice = totalGamePrice;//this.gamePrice;
+            viewModel.ShowGamePrice = true;
+            viewModel.GamePrice = GameInfoManager.Instance.GameInfo.Last().TotalGamePrice;
             this.calculationExecuted = true;
 
         }
@@ -190,13 +123,12 @@ namespace Schafkopfrechner.Pages
                 return;
             }
 
-            foreach (var player in PlayerManager.Instance.Players)
+            foreach (var player in RoundPlayerManager.Instance.Players)
             {
-                PlayerHistoryManager.Instance.AddHistoryGame(player, GameInfoManager.Instance.GameInfo.Last());
                 player.ResetPlayValues();
             }
 
-            int indexGeber = PlayerManager.Instance.Players.ToList().FindIndex(p => p.IsGeber);
+            int indexGeber = RoundPlayerManager.Instance.Players.ToList().FindIndex(p => p.IsGeber);
 
             if (indexGeber == -1)
             {
@@ -205,13 +137,13 @@ namespace Schafkopfrechner.Pages
 
             int newGeberIndex = indexGeber + 1;
 
-            if (PlayerManager.Instance.Players.Count == newGeberIndex)
+            if (RoundPlayerManager.Instance.Players.Count == newGeberIndex)
             {
                 newGeberIndex = 0;
             }
 
-            PlayerManager.Instance.Players[indexGeber].IsGeber = false;
-            PlayerManager.Instance.Players[newGeberIndex].IsGeber = true;
+            RoundPlayerManager.Instance.Players[indexGeber].IsGeber = false;
+            RoundPlayerManager.Instance.Players[newGeberIndex].IsGeber = true;
 
             await Navigation.PushAsync(new RoundStartPage());
         }
@@ -225,7 +157,7 @@ namespace Schafkopfrechner.Pages
                 return;
             }
 
-            await Navigation.PushAsync(new FrontPage());
+            await Navigation.PushAsync(new AppStartPage());
         }
     }
 
@@ -239,7 +171,7 @@ namespace Schafkopfrechner.Pages
         private bool _showGamePrice;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ObservableCollection<Player> Players { get; set; }
+        public ObservableCollection<RoundPlayer> Players { get; set; }
 
         public bool ShowGamePrice
         {

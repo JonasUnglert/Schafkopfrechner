@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Xamarin.Forms.PlatformConfiguration;
 
 namespace Schafkopfrechner.DataStructures
 {
@@ -111,7 +112,9 @@ namespace Schafkopfrechner.DataStructures
 
             if (GameType == GameTypeEnum.Ramsch)
             {
+                winFactor = player.DidWin ? 1 : -3;
                 gameFactor *= player.DidKontra ? 2 : 1;
+                basePrice += this.GetAdditionalSchussPrice(player.DidWin);
             }
 
             if (player.IsPlayer && (GameType == GameTypeEnum.Solo|| GameType == GameTypeEnum.Wenz))
@@ -123,6 +126,23 @@ namespace Schafkopfrechner.DataStructures
             player.BankBalanceInCent += winFactor * totalPrice;
 
             return player;
+        }
+
+        private int GetAdditionalSchussPrice(bool didWin)
+        {
+            int additionalPrice = 0;
+
+            if (didWin)
+            {
+                additionalPrice = +GeneralGameRules.Instance.PriceInCent;
+            }
+            else
+            {
+                int amountSchuss = Players.Where(p => p.DidSchuss).Count();
+                additionalPrice = amountSchuss * GeneralGameRules.Instance.PriceInCent;
+            }
+
+            return additionalPrice;
         }
 
         private void SetBankBalanceToBackup()

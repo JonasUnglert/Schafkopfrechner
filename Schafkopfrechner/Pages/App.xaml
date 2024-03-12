@@ -5,7 +5,7 @@
 
     <Application.Resources>
         <Style TargetType="NavigationPage">
-            <Setter Property="BarBackgroundColor" Value="Black"/>
+            <Setter Property="BarBackgroundColor" Value="SteelBlue"/>
             <Setter Property="BarTextColor" Value="White"/>
         </Style>
 
@@ -18,10 +18,10 @@
 
         <Style TargetType="Button">
             <Setter Property="BorderWidth" Value="2"/>
-            <Setter Property="BorderColor" Value="Gray"/>
+            <Setter Property="BorderColor" Value="Black"/>
             <Setter Property="FontFamily" Value="oldFont" />
             <Setter Property="FontSize" Value="Default"/>
-            <Setter Property="BackgroundColor" Value="Black"/>
+            <Setter Property="BackgroundColor" Value="SteelBlue"/>
             <Setter Property="TextColor" Value="White" />
             <Setter Property="BorderRadius" Value="15" />
             <Setter Property="Margin" Value="5" />

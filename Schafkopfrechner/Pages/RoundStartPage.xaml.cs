@@ -19,7 +19,7 @@ namespace Schafkopfrechner.Pages
     {
         public RoundStartPage()
         {
-            this.BackgroundImageSource = "woodBackground.png";
+            this.BackgroundImageSource = App.BackgroundFilename;
             InitializeComponent();
 
             RoundStartViewModel viewModel = new RoundStartViewModel();

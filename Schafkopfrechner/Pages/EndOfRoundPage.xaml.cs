@@ -74,7 +74,6 @@ namespace Schafkopfrechner.Pages
 
         private async void LaeuferEntry_TextChanged(object sender, TextChangedEventArgs e)
         {
-
             if (isProgrammaticChange)
             {
                 return;
@@ -150,12 +149,13 @@ namespace Schafkopfrechner.Pages
 
         private async void EndGameButton_clicked(object sender, EventArgs e)
         {
-
             bool wantsToContinue = await DisplayAlert("Beenden?", "Wenn du das Spiel beendest gehen die Spielstände verloren!", "Nein", "Ja");
             if (wantsToContinue)
             {
                 return;
             }
+
+            RoundPlayerManager.Instance.Players.Clear();
 
             await Navigation.PushAsync(new AppStartPage());
         }

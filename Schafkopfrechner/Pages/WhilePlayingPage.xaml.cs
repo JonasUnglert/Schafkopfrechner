@@ -18,7 +18,7 @@ namespace Schafkopfrechner.Pages
     {
         public WhilePlayingPage()
         {
-            this.BackgroundImageSource = "woodBackground.png";
+            this.BackgroundImageSource = App.BackgroundFilename;
             InitializeComponent();
 
             WhilePlayingViewModel viewModel = new WhilePlayingViewModel();

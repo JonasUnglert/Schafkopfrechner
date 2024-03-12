@@ -16,7 +16,7 @@ namespace Schafkopfrechner.Pages
     {
         public ChooseGamePage()
         {
-            this.BackgroundImageSource = "woodBackground.png";
+            this.BackgroundImageSource = App.BackgroundFilename;
             InitializeComponent();
 
             ChooseGameViewModel viewModel = new ChooseGameViewModel();

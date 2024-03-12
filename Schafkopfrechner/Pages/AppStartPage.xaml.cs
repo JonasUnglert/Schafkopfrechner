@@ -15,7 +15,7 @@ namespace Schafkopfrechner
 	{
 		public AppStartPage ()
 		{
-			this.BackgroundImageSource = "woodBackground.png";
+			this.BackgroundImageSource = App.BackgroundFilename;
 
             InitializeComponent ();
 		}

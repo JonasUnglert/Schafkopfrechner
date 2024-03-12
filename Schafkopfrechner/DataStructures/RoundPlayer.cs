@@ -59,6 +59,7 @@ namespace Schafkopfrechner.DataStructures
                 IsPlayer = this.IsPlayer,
                 DidLegen = this.DidLegen,
                 DidKontra = this.DidKontra,
+                DidSchuss = this.DidSchuss,
                 DidJungfrau = this.DidJungfrau,
                 IsSchneider = this.IsSchneider,
                 IsSchwarz = this.IsSchwarz,

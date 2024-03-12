@@ -16,7 +16,7 @@ namespace Schafkopfrechner.Pages
     {
         public AddPlayerPage()
         {
-            this.BackgroundImageSource = "woodBackground.png";
+            this.BackgroundImageSource = App.BackgroundFilename;
             InitializeComponent();
             RoundPlayerManager.Instance.Players.CollectionChanged += Players_CollectionChanged;
 

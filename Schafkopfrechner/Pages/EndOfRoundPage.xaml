@@ -82,7 +82,7 @@
                                 <Label Text="{Binding BankBalanceInCent}" 
                                        VerticalOptions="Center" HorizontalOptions="Start" 
                                        HorizontalTextAlignment="End" 
-                                       WidthRequest="35"/>
+                                       WidthRequest="50"/>
 
                                 <Label Text="Ct." 
                                        FontSize="14" 

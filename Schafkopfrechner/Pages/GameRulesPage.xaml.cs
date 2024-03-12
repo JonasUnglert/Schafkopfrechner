@@ -16,7 +16,7 @@ namespace Schafkopfrechner.Pages
         private bool isProgrammaticChange = false; 
         public GameRulesPage()
         {
-            this.BackgroundImageSource = "woodBackground.png";
+            this.BackgroundImageSource = App.BackgroundFilename;
             InitializeComponent();
         }
 

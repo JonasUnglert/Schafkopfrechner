@@ -6,6 +6,7 @@ namespace Schafkopfrechner
 {
     public partial class App : Application
     {
+        public const string BackgroundFilename = "bavarianFlag.png";
         public App()
         {
             InitializeComponent();

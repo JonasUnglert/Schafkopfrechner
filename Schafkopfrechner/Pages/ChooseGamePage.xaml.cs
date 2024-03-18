@@ -18,6 +18,7 @@ namespace Schafkopfrechner.Pages
         {
             this.BackgroundImageSource = App.BackgroundFilename;
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
 
             ChooseGameViewModel viewModel = new ChooseGameViewModel();
             viewModel.isSoloAllowed = GeneralGameRules.Instance.SoloIsAllowed;

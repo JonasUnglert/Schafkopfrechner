@@ -60,7 +60,7 @@
                             <StackLayout Orientation="Horizontal" 
                                          Padding="8,0">
                                 <Label Text="{Binding Name}" 
-                                       TextColor="Black" FontSize="14" 
+                                       TextColor="Black" FontSize="20" 
                                        HorizontalOptions="Start" WidthRequest="90" 
                                        VerticalOptions="Center">
                                     <Label.Triggers>
@@ -68,13 +68,13 @@
                                                      Binding="{Binding IsPlayer}" 
                                                      Value="True">
                                             <Setter Property="FontAttributes" 
-                                                    Value="Bold"/>
+                                                    Value="Italic"/>
                                         </DataTrigger>
                                         <DataTrigger TargetType="Label" 
                                                      Binding="{Binding IsGeber}" 
                                                      Value="True">
                                             <Setter Property="TextColor" 
-                                                    Value="Red"/>
+                                                    Value="darkblue"/>
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
@@ -82,13 +82,14 @@
                                 <Label Text="{Binding BankBalanceInCent}" 
                                        VerticalOptions="Center" HorizontalOptions="Start" 
                                        HorizontalTextAlignment="End" 
-                                       WidthRequest="50"/>
+                                       FontSize="20"
+                                       WidthRequest="80"/>
 
                                 <Label Text="Ct." 
-                                       FontSize="14" 
+                                       FontSize="20" 
                                        VerticalOptions="Center" 
                                        HorizontalOptions="StartAndExpand" 
-                                       WidthRequest="18"/>
+                                       WidthRequest="30"/>
 
                                 <CheckBox IsEnabled="False"
                                           Color="Gray" 

@@ -18,6 +18,7 @@ namespace Schafkopfrechner.Pages
         {
             this.BackgroundImageSource = App.BackgroundFilename;
             InitializeComponent();
+
             RoundPlayerManager.Instance.Players.CollectionChanged += Players_CollectionChanged;
 
 #if DEBUG

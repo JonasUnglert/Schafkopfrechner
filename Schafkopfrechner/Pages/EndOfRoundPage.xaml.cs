@@ -36,6 +36,8 @@ namespace Schafkopfrechner.Pages
         public EndOfRoundPage()
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
+
             viewModel.Players = RoundPlayerManager.Instance.Players;
             viewModel.IsRamschPlayed = GameInfoManager.Instance.GameInfo.Last().GameType == GameInfo.GameTypeEnum.Ramsch ? true : false;
             viewModel.LegenIsAllowed = GeneralGameRules.Instance.LegenIsAllowed;

@@ -18,6 +18,7 @@ namespace Schafkopfrechner.Pages
         {
             this.BackgroundImageSource = App.BackgroundFilename;
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
         }
 
         private async void PriceEntry_TextChanged(object sender, TextChangedEventArgs e)

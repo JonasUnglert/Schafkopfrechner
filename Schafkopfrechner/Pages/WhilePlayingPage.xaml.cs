@@ -20,6 +20,7 @@ namespace Schafkopfrechner.Pages
         {
             this.BackgroundImageSource = App.BackgroundFilename;
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
 
             WhilePlayingViewModel viewModel = new WhilePlayingViewModel();
             viewModel.Players = RoundPlayerManager.Instance.Players;

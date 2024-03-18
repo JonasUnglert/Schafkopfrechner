@@ -18,7 +18,7 @@
                                          Padding="8,0">
                                 <Label 
                                     Text="{Binding Name}" 
-                                    FontSize="14" 
+                                    FontSize="20" 
                                     HorizontalOptions="Start" 
                                     WidthRequest="120" 
                                     VerticalOptions="Center">
@@ -29,21 +29,22 @@
                                             Value="True">
                                             <Setter 
                                                 Property="TextColor"
-                                                Value="Black"/>
+                                                Value="darkblue"/>
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
                                 <Label 
                                     Text="{Binding BankBalanceInCent}"
                                     VerticalOptions="Center" 
+                                    FontSize="20"
                                     HorizontalOptions="Start"
                                     HorizontalTextAlignment="End"
                                     WidthRequest="50"/>
                                 <Label 
-                                    Text="Ct." FontSize="14"
+                                    Text="Ct." FontSize="20"
                                     VerticalOptions="Center" 
                                     HorizontalOptions="Start"
-                                    WidthRequest="18" 
+                                    WidthRequest="30" 
                                     HorizontalTextAlignment="Start"/>
                                 <CheckBox 
                                     IsChecked="{Binding DidLegen}"
@@ -52,7 +53,7 @@
                                 <Button 
                                     Text="SPIELE"
                                     FontSize="13"
-                                    HorizontalOptions="End"
+                                    HorizontalOptions="Center"
                                     VerticalOptions="Center"
                                     Clicked="PlayerButton_Clicked" 
                                     CommandParameter="{Binding Name}"/>

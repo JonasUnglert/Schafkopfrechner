@@ -13,7 +13,7 @@ namespace Schafkopfrechner
 
             MainPage = new NavigationPage( new AppStartPage());
         }
-
+        
         protected override void OnStart()
         {
         }

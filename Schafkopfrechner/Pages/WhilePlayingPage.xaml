@@ -20,14 +20,14 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Text="Name"
+                <Label Text=""
                        TextColor="Black"
                        FontAttributes="Bold"
                        Grid.Column="0"
                        HorizontalTextAlignment="Start"
                        HorizontalOptions="Start"
                        VerticalOptions="Center"/>
-                <Label Text="€" 
+                <Label Text="" 
                        TextColor="Black"
                        FontAttributes="Bold" 
                        Grid.Column="1"
@@ -46,31 +46,35 @@
                        FontAttributes="Bold" 
                        Grid.Column="3"
                        HorizontalTextAlignment="Start"
-                       HorizontalOptions="Start"
+                       HorizontalOptions="Center"
+                       WidthRequest="20"
                        VerticalOptions="Center"
                        IsVisible="{Binding Source={x:Reference WhilePlayingPageName}, Path=BindingContext.LegenIsAllowed}"/>
                 <Label Text="K" 
                        TextColor="Black"
                        FontAttributes="Bold" 
                        Grid.Column="4"
-                       HorizontalTextAlignment="Start"
-                       HorizontalOptions="Start"
+                       HorizontalTextAlignment="Center"
+                       HorizontalOptions="Center"
+                       WidthRequest="20"
                        VerticalOptions="Center"
                        IsVisible="{Binding Source={x:Reference WhilePlayingPageName}, Path=BindingContext.KontraIsAllowed}"/>
                 <Label Text="S" 
                        TextColor="Black"
                        FontAttributes="Bold" 
                        Grid.Column="4"
-                       HorizontalTextAlignment="Start"
-                       HorizontalOptions="Start"
+                       HorizontalTextAlignment="Center"
+                       HorizontalOptions="Center"
+                       WidthRequest="20"
                        VerticalOptions="Center"
                        IsVisible="{Binding Source={x:Reference WhilePlayingPageName}, Path=BindingContext.IsRamschPlayed}"/>
                 <Label Text="JF" 
                        TextColor="Black"
                        FontAttributes="Bold" 
                        Grid.Column="5" 
-                       HorizontalTextAlignment="Start"
-                       HorizontalOptions="Start"
+                       HorizontalTextAlignment="Center"
+                       HorizontalOptions="Center"
+                       WidthRequest="20"
                        VerticalOptions="Center"
                        IsVisible="{Binding Source={x:Reference WhilePlayingPageName}, Path=BindingContext.IsRamschPlayed}"/>
                 <Label Text="S"
@@ -120,15 +124,16 @@
                                     Text="{Binding BankBalanceInCent}" 
                                     VerticalOptions="Center" 
                                     HorizontalOptions="Start" 
-                                    HorizontalTextAlignment="Start" 
-                                    WidthRequest="50"/>
+                                    HorizontalTextAlignment="End" 
+                                    WidthRequest="50"
+                                    FontSize="20"/>
 
                                 <Label
                                     Text="Ct." 
-                                    FontSize="14" 
+                                    FontSize="20" 
                                     VerticalOptions="Center" 
                                     HorizontalOptions="StartAndExpand" 
-                                    WidthRequest="18"/>
+                                    WidthRequest="30"/>
 
                                 <CheckBox IsEnabled="False" 
                                           Color="Gray" 

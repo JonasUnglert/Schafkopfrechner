@@ -18,7 +18,8 @@ namespace Schafkopfrechner
 			this.BackgroundImageSource = App.BackgroundFilename;
 
             InitializeComponent ();
-		}
+            NavigationPage.SetHasNavigationBar(this, false);
+        }
 
         private async void OnNewGameClicked(object sender, EventArgs e)
         {

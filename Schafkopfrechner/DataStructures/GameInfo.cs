@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using Xamarin.Forms.PlatformConfiguration;
 
@@ -43,11 +44,11 @@ namespace Schafkopfrechner.DataStructures
 
             TotalGamePrice = basePrice * gameFactor;
 
-            for (int i = 0; i < Players.Count; i++) 
+            for (int i = 0; i < Players.Count; i++)
             {
                 var playerCopy = Players[i].DeepCopy();
 
-                playerCopy = this.ApplyNewBankBalance(playerCopy, gameFactor, basePrice);
+                playerCopy = this.ApplyNewBankBalance(playerCopy, basePrice, gameFactor);
 
                 Players[i] = playerCopy;
             }
@@ -95,7 +96,19 @@ namespace Schafkopfrechner.DataStructures
             {
                 int amountJungfrauen = Players.Where(p => p.DidJungfrau == true).Count();
                 int jungfrauFactor = (int)Math.Pow(2, amountJungfrauen);
-                return legerFactor * jungfrauFactor;
+
+                // wenn der verlierer geschossen hat, dann verdoppelt sich der preis
+                int schussFactor;
+                try
+                {
+                    schussFactor = Players.First(p => p.DidWin == false).DidSchuss ? 2 : 1;
+                }
+                catch (InvalidOperationException ex) 
+                {
+                    schussFactor = 1;
+                }
+
+                return legerFactor * jungfrauFactor * schussFactor;
             }
             else
             {
@@ -110,14 +123,33 @@ namespace Schafkopfrechner.DataStructures
         {
             int winFactor = player.DidWin ? 1 : -1;
 
-            if (GameType == GameTypeEnum.Ramsch)
+            // fuer den ramsch verlierer muss der preis gesondert berechnet werden, da jeder spieler unterschiedlich viel bekommt
+            if (GameType == GameTypeEnum.Ramsch && !player.DidWin)
             {
-                winFactor = player.DidWin ? 1 : -3;
-                gameFactor *= player.DidKontra ? 2 : 1;
-                basePrice += this.GetAdditionalSchussPrice(player.DidWin);
+                int completeLoserPrice = 0;
+
+                foreach (var roundPlayer in Players)
+                {
+                    if (roundPlayer.DidWin)
+                    {
+                        int schussFactor = roundPlayer.DidSchuss ? 2 : 1;
+
+                        completeLoserPrice += basePrice * schussFactor * gameFactor;
+                    }
+                }
+
+                player.BankBalanceInCent -= completeLoserPrice;
+
+                return player;
             }
 
-            if (player.IsPlayer && (GameType == GameTypeEnum.Solo|| GameType == GameTypeEnum.Wenz))
+            if (GameType == GameTypeEnum.Ramsch && player.DidWin)
+            {
+                int schussFactor = player.DidSchuss ? 2 : 1;
+                gameFactor = gameFactor * schussFactor;
+            }
+
+            if (player.IsPlayer && (GameType == GameTypeEnum.Solo || GameType == GameTypeEnum.Wenz))
             {
                 winFactor = winFactor * SoloWinFactor;
             }
@@ -126,23 +158,6 @@ namespace Schafkopfrechner.DataStructures
             player.BankBalanceInCent += winFactor * totalPrice;
 
             return player;
-        }
-
-        private int GetAdditionalSchussPrice(bool didWin)
-        {
-            int additionalPrice = 0;
-
-            if (didWin)
-            {
-                additionalPrice = +GeneralGameRules.Instance.PriceInCent;
-            }
-            else
-            {
-                int amountSchuss = Players.Where(p => p.DidSchuss).Count();
-                additionalPrice = amountSchuss * GeneralGameRules.Instance.PriceInCent;
-            }
-
-            return additionalPrice;
         }
 
         private void SetBankBalanceToBackup()

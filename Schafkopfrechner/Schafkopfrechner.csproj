@@ -12,6 +12,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\appLogo.png" />
+    <None Remove="Resources\appLogo144px.png" />
+    <None Remove="Resources\appLogo192px.png" />
+    <None Remove="Resources\appLogo48px.png" />
+    <None Remove="Resources\appLogo72px.png" />
+    <None Remove="Resources\appLogo96px.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\appLogo.png" />
+    <EmbeddedResource Include="Resources\appLogo144px.png" />
+    <EmbeddedResource Include="Resources\appLogo192px.png" />
+    <EmbeddedResource Include="Resources\appLogo48px.png" />
+    <EmbeddedResource Include="Resources\appLogo72px.png" />
+    <EmbeddedResource Include="Resources\appLogo96px.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
   </ItemGroup>
